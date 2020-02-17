@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="RestaurantPOSSystem.jnlp">
+  <information>
+    <title>RestaurantPOSSystem</title>
+    <vendor>timbettison</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="RestaurantPOSSystem.jar" size="3963" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="800" height="600" main-class="restaurantpossystem.RestaurantPOSSystem"  name="RestaurantPOSSystem" />
+  <update check="always"/>
+</jnlp>
