@@ -29,13 +29,37 @@ public class FXMLLoginScreenController implements Initializable {
     
     @FXML
     private void handleChefButtonAction(ActionEvent event) throws IOException {
-        Parent chefViewParent = FXMLLoader.load(getClass().getResource("FXMLChefGUI.fxml"));
-        Scene chefViewScene = new Scene(chefViewParent);
+        Parent parent = FXMLLoader.load(getClass().getResource("FXMLChefGUI.fxml"));
+        Scene scene = new Scene(parent);
         
         // this line gets the Stage information 
         Stage chefWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
         
-        chefWindow.setScene(chefViewScene);
+        chefWindow.setScene(scene);
+        chefWindow.show();
+    }
+    
+    @FXML
+    private void handleFoHButtonAction(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("FXMLFoHGUI.fxml"));
+        Scene scene = new Scene(parent);
+        
+        // this line gets the Stage information 
+        Stage chefWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+        
+        chefWindow.setScene(scene);
+        chefWindow.show();
+    }
+    
+    @FXML
+    private void handleManagerButtonAction(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("FXMLManagerGUI.fxml"));
+        Scene scene = new Scene(parent);
+        
+        // this line gets the Stage information 
+        Stage chefWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+        
+        chefWindow.setScene(scene);
         chefWindow.show();
     }
     
