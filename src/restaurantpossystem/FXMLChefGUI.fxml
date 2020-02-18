@@ -8,6 +8,6 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="restaurantpossystem.FXMLChefGUIController">
    <children>
-      <Label layoutX="283.0" layoutY="192.0" text="chef gui" />
+      <Label layoutX="375.0" layoutY="292.0" text="chef gui" />
    </children>
 </AnchorPane>

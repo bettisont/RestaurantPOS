@@ -3,9 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/FXMLDocument.fxml</file>
+            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/FXMLChefGUI.fxml</file>
+            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/FXMLChefGUIController.java</file>
+            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/FXMLLoginScreenController.java</file>
+            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/FXMLLoginScreen.fxml</file>
             <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/RestaurantPOSSystem.java</file>
-            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/FXMLDocumentController.java</file>
+            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/FXMLManagerGUI.fxml</file>
+            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/FXMLManagerGUIController.java</file>
+            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/FXMLFoHGUIController.java</file>
+            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/FXMLFoHGUI.fxml</file>
         </group>
     </open-files>
 </project-private>
