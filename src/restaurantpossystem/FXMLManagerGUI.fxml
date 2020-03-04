@@ -8,8 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="restaurantpossystem.FXMLManagerGUIController">
    <children>
       <HBox layoutX="-7.0" layoutY="-6.0" prefHeight="612.0" prefWidth="812.0">
          <children>
@@ -63,10 +62,10 @@
                                           <Button mnemonicParsing="false" text="Add Item" />
                                        </children>
                                     </HBox>
-                                    <TableView prefHeight="200.0" prefWidth="652.0">
+                                    <TableView fx:id="tableView" prefHeight="200.0" prefWidth="652.0">
                                       <columns>
-                                        <TableColumn prefWidth="75.0" text="Item" />
-                                        <TableColumn prefWidth="75.0" text="Price" />
+                                        <TableColumn fx:id="nameCol" prefWidth="119.0" text="Name" />
+                                          <TableColumn fx:id="categoryCol" prefWidth="111.0" text="Category" />
                                       </columns>
                                     </TableView>
                                  </children>
