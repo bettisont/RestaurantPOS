@@ -12,33 +12,21 @@ import javafx.beans.property.SimpleStringProperty;
  * @author timbettison
  */
 public class MenuItem {
-    private SimpleStringProperty name, category;
+    private SimpleStringProperty category, name, description, price, allergen, timeToPrepare;
     
 
-    public MenuItem(String name, String category){
+    public MenuItem(String name, String category, String description, String price, String allergen, String timeToPrepare){
         this.name = new SimpleStringProperty(name);
         this.category = new SimpleStringProperty(category);
+        this.description = new SimpleStringProperty(description);
+        this.price = new SimpleStringProperty(price);
+        this.allergen = new SimpleStringProperty(allergen);
+        this.timeToPrepare = new SimpleStringProperty(timeToPrepare);
     }
 
-    public MenuItem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
+    
 
-    public String getName() {
-        return name.get();
-    }
-
-    public void setName(SimpleStringProperty name) {
-        this.name = name;
-    }
-
-    public String getCategory() {
-        return category.get();
-    }
-
-    public void setCategory(SimpleStringProperty category) {
-        this.category = category;
-    }
     
     
 }
