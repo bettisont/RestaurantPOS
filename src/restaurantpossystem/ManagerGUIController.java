@@ -5,6 +5,7 @@
  */
 package restaurantpossystem;
 
+import databaseClasses.DatabaseManager;
 import databaseClasses.MenuItem;
 import java.io.IOException;
 import java.net.URL;
@@ -36,16 +37,13 @@ import javafx.stage.Stage;
  */
 public class ManagerGUIController implements Initializable {
     
+    private DatabaseManager dbManager; 
+    
     //configure the table 
     @FXML private TableView<MenuItem> tableView; 
     @FXML private TableColumn<MenuItem, String> nameCol;
     @FXML private TableColumn<MenuItem, String> categoryCol;
-    
-    private static final String userName = "root";
-    private static final String password = "root";
-    private static final String conn = "jdbc:mysql://localhost:8889/restaurantManagementSystem";
-    
-    private Connection connection; 
+
     /**
      * Initializes the controller class.
      */
@@ -55,32 +53,13 @@ public class ManagerGUIController implements Initializable {
         // set up the columns in the table 
         nameCol.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("name"));
         categoryCol.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("category"));
+        
+        dbManager = new DatabaseManager();
     
         // load dummy data 
-        tableView.setItems(getMenuItems());
-    
-        
-        try {
-            /**
-             * setup the db connection
-             */
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:8889/restaurantManagementSystem",userName,password);
-        } catch (SQLException ex) {
-            Logger.getLogger(ManagerGUIController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        tableView.setItems(dbManager.getMenuItems());
     }   
-    /**
-     * 
-     * @return an ObservableList of MenuItems
-     * this will eventually be linked to a database
-     * an ObservableList is very similar to an ArrayList
-     */
-    private ObservableList<MenuItem> getMenuItems() {
-        ObservableList<MenuItem> menuItems = FXCollections.observableArrayList(); 
-        
-        return menuItems;
-    }
+
     
     @FXML
     private void handleAddItemButtonAction(ActionEvent event) throws IOException {
