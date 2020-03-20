@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -12,22 +13,27 @@
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <VBox alignment="CENTER" layoutX="350.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0">
          <children>
-              <Button fx:id="button" onAction="#handleChefButtonAction" text="Chef">
+              <Button fx:id="button" onAction="#handleChefButtonAction" prefHeight="38.0" prefWidth="127.0" text="Chef" textFill="#786ed3">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleFoHButtonAction" text="FoH">
+            <Button mnemonicParsing="false" onAction="#handleFoHButtonAction" prefHeight="38.0" prefWidth="124.0" text="FoH" textFill="#786ed3">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleManagerButtonAction" text="Manager">
+            <Button mnemonicParsing="false" onAction="#handleManagerButtonAction" prefHeight="41.0" prefWidth="144.0" text="Manager" textFill="#786ed3">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
          </children>
       </VBox>
+      <Label layoutX="355.0" layoutY="114.0" prefHeight="23.0" prefWidth="90.0" text="Login" textFill="#786ed3">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

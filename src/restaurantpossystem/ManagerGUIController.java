@@ -34,7 +34,7 @@ import javafx.stage.Stage;
  *
  * @author timbettison
  */
-public class FXMLManagerGUIController implements Initializable {
+public class ManagerGUIController implements Initializable {
     
     //configure the table 
     @FXML private TableView<MenuItem> tableView; 
@@ -66,7 +66,7 @@ public class FXMLManagerGUIController implements Initializable {
              */
             connection = DriverManager.getConnection("jdbc:mysql://localhost:8889/restaurantManagementSystem",userName,password);
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLManagerGUIController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManagerGUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }   
@@ -88,10 +88,10 @@ public class FXMLManagerGUIController implements Initializable {
         Scene scene = new Scene(parent);
         
         // this line gets the Stage information 
-        Stage chefWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage newItemWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
         
-        chefWindow.setScene(scene);
-        chefWindow.show();
+        newItemWindow.setScene(scene);
+        newItemWindow.show();
     }
 
     

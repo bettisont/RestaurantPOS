@@ -11,17 +11,17 @@
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="restaurantpossystem.NewMenuItemController">
    <children>
       <Text fill="#c3a7a7" layoutX="395.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="193.22900390625" />
-      <Label layoutX="111.0" layoutY="49.0" prefHeight="20.0" prefWidth="139.0" text="Add an Item..." textFill="#786ed3">
+      <Label layoutX="168.0" layoutY="60.0" prefHeight="26.0" prefWidth="365.0" text="What would you like to add to your Menu?" textFill="#786ed3">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="categoryChoiceBox" layoutX="126.0" layoutY="136.0" prefWidth="150.0" />
-      <CheckBox layoutX="126.0" layoutY="214.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="74.0" text="Allergen" textFill="#c3a7a7" />
-      <Button layoutX="599.0" layoutY="336.0" mnemonicParsing="false" text="Confirm" textFill="#786ed3" />
-      <TextField layoutX="395.0" layoutY="136.0" promptText="Name" />
-      <TextField layoutX="126.0" layoutY="172.0" promptText="Description" />
-      <TextField layoutX="395.0" layoutY="172.0" promptText="Price" />
-      <TextField layoutX="395.0" layoutY="210.0" promptText="Preparation Time" />
+      <CheckBox fx:id="allergen" layoutX="126.0" layoutY="214.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="74.0" text="Allergen" textFill="#c3a7a7" />
+      <Button layoutX="319.0" layoutY="280.0" mnemonicParsing="false" onAction="#handleConfirmButtonAction" text="Confirm" textFill="#786ed3" />
+      <TextField fx:id="name" layoutX="126.0" layoutY="131.0" promptText="Name" />
+      <TextField fx:id="description" layoutX="126.0" layoutY="172.0" promptText="Description" />
+      <TextField fx:id="price" layoutX="395.0" layoutY="172.0" promptText="Price" />
+      <TextField fx:id="preperationTime" layoutX="395.0" layoutY="210.0" promptText="Preparation Time (mins)" />
+      <ComboBox fx:id="categoryChoiceBox" layoutX="395.0" layoutY="131.0" prefWidth="150.0" promptText="Category" />
    </children>
 </AnchorPane>

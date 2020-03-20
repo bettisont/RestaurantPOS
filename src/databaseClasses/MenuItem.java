@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author timbettison
  */
 public class MenuItem {
+    
     private SimpleStringProperty category, name, description, price, allergen, timeToPrepare;
     
 

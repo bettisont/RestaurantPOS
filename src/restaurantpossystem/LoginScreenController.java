@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  *
  * @author timbettison
  */
-public class FXMLLoginScreenController implements Initializable {
+public class LoginScreenController implements Initializable {
     
     @FXML
     private Label label;
