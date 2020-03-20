@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -16,12 +18,36 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <CheckBox fx:id="allergen" layoutX="126.0" layoutY="214.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="74.0" text="Allergen" textFill="#c3a7a7" />
-      <Button layoutX="319.0" layoutY="280.0" mnemonicParsing="false" onAction="#handleConfirmButtonAction" text="Confirm" textFill="#786ed3" />
-      <TextField fx:id="name" layoutX="126.0" layoutY="131.0" promptText="Name" />
-      <TextField fx:id="description" layoutX="126.0" layoutY="172.0" promptText="Description" />
-      <TextField fx:id="price" layoutX="395.0" layoutY="172.0" promptText="Price" />
-      <TextField fx:id="preperationTime" layoutX="395.0" layoutY="210.0" promptText="Preparation Time (mins)" />
-      <ComboBox fx:id="categoryChoiceBox" layoutX="395.0" layoutY="131.0" prefWidth="150.0" promptText="Category" />
+      <CheckBox fx:id="allergen" layoutX="131.0" layoutY="247.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="74.0" text="Allergen" textFill="#c3a7a7">
+         <tooltip>
+            <Tooltip text="Is the Menu Item an Allergen?" />
+         </tooltip></CheckBox>
+      <Button layoutX="319.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleConfirmButtonAction" text="Confirm" textFill="#786ed3" />
+      <TextField fx:id="name" layoutX="126.0" layoutY="104.0" promptText="Name">
+         <tooltip>
+            <Tooltip text="A Name for the Menu Item" />
+         </tooltip></TextField>
+      <TextField fx:id="description" layoutX="126.0" layoutY="172.0" promptText="Description">
+         <tooltip>
+            <Tooltip text="A Description for the Menu Item" />
+         </tooltip></TextField>
+      <TextField fx:id="price" layoutX="395.0" layoutY="172.0" promptText="Price">
+         <tooltip>
+            <Tooltip text="A Price for the Menu Item" />
+         </tooltip></TextField>
+      <TextField fx:id="preperationTime" layoutX="395.0" layoutY="242.0" promptText="Preparation Time (mins)">
+         <tooltip>
+            <Tooltip text="How long does the Menu Item take to prepare? " />
+         </tooltip></TextField>
+      <ComboBox fx:id="categoryChoiceBox" layoutX="395.0" layoutY="104.0" prefWidth="150.0" promptText="Category">
+         <tooltip>
+            <Tooltip text="A Category for the the Menu Item" />
+         </tooltip>
+      </ComboBox>
+      <Label fx:id="priceRequiredIndicator" layoutX="429.0" layoutY="201.0" textFill="#d01616" />
+      <Label fx:id="preperationRequiredIndicator" layoutX="429.0" layoutY="269.0" textFill="#d01616" />
+      <Label fx:id="descRequiredIndicator" layoutX="166.0" layoutY="201.0" textFill="#d01616" />
+      <Label fx:id="categoryRequiredIndicator" layoutX="429.0" layoutY="131.0" textFill="#d01616" />
+      <Label fx:id="nameRequiredIndicator" layoutX="164.0" layoutY="131.0" textFill="#d01616" />
    </children>
 </AnchorPane>
