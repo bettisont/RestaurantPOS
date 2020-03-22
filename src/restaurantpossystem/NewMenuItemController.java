@@ -5,9 +5,14 @@
  */
 package restaurantpossystem;
 
+import databaseClasses.DatabaseManager;
+import databaseClasses.MenuItem;
 import static java.lang.System.console;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,6 +32,7 @@ public class NewMenuItemController implements Initializable {
 
     ObservableList<String> categoryChoiceBoxList = FXCollections.observableArrayList("Side", "Starter", "Main", "Dessert");
 
+    DatabaseManager dbManager;
     // FXML fields 
     // Indicator Labels
     @FXML 
@@ -62,7 +68,7 @@ public class NewMenuItemController implements Initializable {
         // TODO
         categoryChoiceBox.setItems(categoryChoiceBoxList);
         
-        //field validator
+        dbManager = new DatabaseManager();
        
     }
 
@@ -76,17 +82,21 @@ public class NewMenuItemController implements Initializable {
        Boolean isPreperationTimeEmpty = isTextFieldEmpty(preperationTime, preperationRequiredIndicator, "Field Required!");
        Boolean isCategoryEmpty = isComboBoxFieldEmpty(categoryChoiceBox, categoryRequiredIndicator, "Field Required!");
        
-
-        
         if(!(isNameEmpty | isDescriptionEmpty | isPriceEmpty | isPreperationTimeEmpty | isCategoryEmpty)){
-            System.out.println("all fields filled...");
-            System.out.println("...Item to be added...:");
-            System.out.println("Category: " + "'"+categoryChoiceBox.getValue()+"'");
-            System.out.println("Name: " + "'"+name.getText()+"'");
-            System.out.println("Description: " + "'"+ description.getText() + "'");
-            System.out.println("Price: " + "'"+price.getText()+"'");
-            System.out.println("Allergen: " + "'"+allergen.isSelected()+"'");
-            System.out.println("Preperation Time: " + "'"+preperationTime.getText()+"'");
+
+            MenuItem thisMenuItem = new MenuItem(name.getText(), categoryChoiceBox.getValue().toString(), description.getText(), Float.valueOf(price.getText()), allergen.isSelected(), preperationTime.getText());
+            System.out.println(thisMenuItem.getCategory());
+            System.out.println(thisMenuItem.getName());
+            System.out.println(thisMenuItem.getDescription());
+            System.out.println(thisMenuItem.getAllergen());
+            System.out.println(thisMenuItem.getTimeToPrepare());
+            System.out.println(thisMenuItem.getPrice());
+            
+           try {            
+               dbManager.addMenuItemToDatabase(thisMenuItem);
+           } catch (SQLException ex) {
+               Logger.getLogger(NewMenuItemController.class.getName()).log(Level.SEVERE, null, ex);
+           }
         }
         
         // if none of the fields are empty, then do stuff , else do nothing 

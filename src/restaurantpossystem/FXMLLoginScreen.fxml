@@ -8,10 +8,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="restaurantpossystem.FXMLLoginScreenController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="restaurantpossystem.FXMLLoginScreenController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <VBox alignment="CENTER" layoutX="350.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0">
+      <VBox alignment="CENTER" layoutX="300.0" layoutY="100.0" prefHeight="200.0" prefWidth="100.0">
          <children>
               <Button fx:id="button" onAction="#handleChefButtonAction" prefHeight="38.0" prefWidth="127.0" text="Chef" textFill="#786ed3">
                <VBox.margin>
@@ -30,7 +30,7 @@
             </Button>
          </children>
       </VBox>
-      <Label layoutX="355.0" layoutY="114.0" prefHeight="23.0" prefWidth="90.0" text="Login" textFill="#786ed3">
+      <Label layoutX="305.0" layoutY="54.0" prefHeight="23.0" prefWidth="90.0" text="Login" textFill="#786ed3">
          <font>
             <Font size="37.0" />
          </font>

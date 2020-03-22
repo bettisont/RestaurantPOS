@@ -8,6 +8,7 @@ package databaseClasses;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -49,6 +50,22 @@ public class DatabaseManager {
         ObservableList<MenuItem> menuItems = FXCollections.observableArrayList(); 
         
         return menuItems;
+    }
+    
+    public void addMenuItemToDatabase(MenuItem menuItem) throws SQLException{
+        String category = menuItem.getCategory().get();
+        String name = menuItem.getName().get();
+        String description = menuItem.getDescription().get();
+        float price = menuItem.getPrice();
+        Boolean allergen = menuItem.getAllergen();
+        int allergenForDb = 1;
+        if(!(allergen)){
+            allergenForDb = 0;
+        }
+        String prepTime = menuItem.getTimeToPrepare().get();
+        String sql = "INSERT INTO `menuItems` (`ID`, `category`, `name`, `description`, `price`, `allergen`, `prepTime`) VALUES (NULL,"+"'"+category+"'"+","+"'"+name+"'"+","+"'"+description+"'"+","+"'"+price+"'"+","+"'"+allergenForDb+"'"+","+"'"+prepTime+"'"+")";
+        Statement statement = connection.createStatement();
+        statement.execute(sql);
     }
     
 }

@@ -40,9 +40,9 @@ public class ManagerGUIController implements Initializable {
     private DatabaseManager dbManager; 
     
     //configure the table 
-    @FXML private TableView<MenuItem> tableView; 
-    @FXML private TableColumn<MenuItem, String> nameCol;
-    @FXML private TableColumn<MenuItem, String> categoryCol;
+   // @FXML private TableView<MenuItem> tableView; 
+   // @FXML private TableColumn<MenuItem, String> nameCol;
+   // @FXML private TableColumn<MenuItem, String> categoryCol;
 
     /**
      * Initializes the controller class.
@@ -51,13 +51,13 @@ public class ManagerGUIController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         // set up the columns in the table 
-        nameCol.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("name"));
-        categoryCol.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("category"));
+     //   nameCol.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("name"));
+     //   categoryCol.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("category"));
         
         dbManager = new DatabaseManager();
     
         // load dummy data 
-        tableView.setItems(dbManager.getMenuItems());
+     //   tableView.setItems(dbManager.getMenuItems());
     }   
 
     
