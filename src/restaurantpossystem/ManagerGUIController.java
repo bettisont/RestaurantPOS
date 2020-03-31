@@ -24,10 +24,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -38,6 +40,9 @@ import javafx.stage.Stage;
 public class ManagerGUIController implements Initializable {
     
     private DatabaseManager dbManager; 
+    
+    @FXML
+    Button addItemButton;
     
     //configure the table 
    // @FXML private TableView<MenuItem> tableView; 
@@ -55,23 +60,26 @@ public class ManagerGUIController implements Initializable {
      //   categoryCol.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("category"));
         
         dbManager = new DatabaseManager();
+        ObservableList<MenuItem> menuItemsInDatabase;
     
-        // load dummy data 
-     //   tableView.setItems(dbManager.getMenuItems());
+        try {
+            // load dummy data
+            //   tableView.setItems(dbManager.getMenuItems());
+            menuItemsInDatabase = dbManager.getAllMenuItems();
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerGUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }   
 
     
     @FXML
     private void handleAddItemButtonAction(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("newMenuItem.fxml"));
-        Scene scene = new Scene(parent);
-        
-        // this line gets the Stage information 
-        Stage newItemWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
-        
-        newItemWindow.setScene(scene);
-        newItemWindow.show();
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("newMenuItem.fxml"));
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(addItemButton.getScene().getWindow());
+        stage.showAndWait();
     }
-
-    
 }

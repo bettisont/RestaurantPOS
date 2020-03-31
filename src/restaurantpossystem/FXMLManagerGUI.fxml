@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="restaurantpossystem.ManagerGUIController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="restaurantpossystem.ManagerGUIController">
   <tabs>
     <Tab text="Menu">
       <content>
@@ -38,7 +38,7 @@
                         <TableColumn prefWidth="110.0" resizable="false" text="Allergen" />
                     </columns>
                   </TableView>
-                  <Button layoutX="316.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleAddItemButtonAction" text="Add Item" textFill="#786ed3" />
+                  <Button fx:id="addItemButton" layoutX="316.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleAddItemButtonAction" text="Add Item" textFill="#786ed3" />
                </children>
             </AnchorPane>
         </content>

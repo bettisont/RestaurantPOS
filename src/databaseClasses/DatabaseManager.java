@@ -7,8 +7,11 @@ package databaseClasses;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -68,4 +71,31 @@ public class DatabaseManager {
         statement.execute(sql);
     }
     
+    public ObservableList<MenuItem> getAllMenuItems() throws SQLException{
+        ObservableList<String> listOfMenuItems = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM `menuItems`";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            listOfMenuItems.add(rs.getString("category") +", "+ rs.getString("name") +", "+ rs.getString("description") +", "+ rs.getString("price") +", "+ rs.getString("allergen") +", "+ rs.getString("prepTime"));
+        }
+        return convertStringsToMenuItems(listOfMenuItems);
+    }
+    
+    private ObservableList<MenuItem> convertStringsToMenuItems(ObservableList<String> menuItems){
+        ObservableList<MenuItem> menuItemObjects = FXCollections.observableArrayList();
+        menuItems.stream().map((menuItem) -> menuItem.split(",")).map((split) -> {
+            String name = split[1];
+            String category = split[0];
+            String description = split[2];
+            float price = Float.parseFloat(split[3]);
+            Boolean allergen = "1".equals(split[4]);
+            String timeToPrepare = split[5];
+            MenuItem thisMenuItem = new MenuItem(name, category, description, price, allergen, timeToPrepare);
+            return thisMenuItem;
+        }).forEachOrdered((thisMenuItem) -> {
+            menuItemObjects.add(thisMenuItem);
+        });
+        return menuItemObjects;
+    }
 }

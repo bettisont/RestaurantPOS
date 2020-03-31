@@ -75,20 +75,7 @@ public class MenuItem {
         this.allergen = allergen;
     }
 
-    @Override
-    public String toString(){
-        String toReturn = "";
-        toReturn.concat("all fields filled...");
-        toReturn.concat("...Item to be added...:");
-        toReturn.concat("Category: " + "'"+this.category+"'");
-        toReturn.concat("Name: " + "'"+this.name+"'");
-        toReturn.concat("Description: " + "'"+ this.description + "'");
-        toReturn.concat("Price: " + "'"+ this.price +"'");
-        toReturn.concat("Allergen: " + "'"+ this.allergen +"'");
-        toReturn.concat("Preperation Time: " + "'"+ this.timeToPrepare +"'");
-        return toReturn;
-    }
-    
+
 
     
     

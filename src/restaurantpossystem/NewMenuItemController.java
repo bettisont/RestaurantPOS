@@ -7,6 +7,7 @@ package restaurantpossystem;
 
 import databaseClasses.DatabaseManager;
 import databaseClasses.MenuItem;
+import java.io.IOException;
 import static java.lang.System.console;
 import java.net.URL;
 import java.sql.SQLException;
@@ -16,12 +17,17 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -72,7 +78,7 @@ public class NewMenuItemController implements Initializable {
        
     }
 
-    public void handleConfirmButtonAction(){
+    public void handleConfirmButtonAction() throws IOException{
 
         // Verify Data meets the constraints 
         // TextFields
@@ -85,18 +91,21 @@ public class NewMenuItemController implements Initializable {
         if(!(isNameEmpty | isDescriptionEmpty | isPriceEmpty | isPreperationTimeEmpty | isCategoryEmpty)){
 
             MenuItem thisMenuItem = new MenuItem(name.getText(), categoryChoiceBox.getValue().toString(), description.getText(), Float.valueOf(price.getText()), allergen.isSelected(), preperationTime.getText());
-            System.out.println(thisMenuItem.getCategory());
-            System.out.println(thisMenuItem.getName());
-            System.out.println(thisMenuItem.getDescription());
-            System.out.println(thisMenuItem.getAllergen());
-            System.out.println(thisMenuItem.getTimeToPrepare());
-            System.out.println(thisMenuItem.getPrice());
+            //System.out.println(thisMenuItem.getCategory());
+            //System.out.println(thisMenuItem.getName());
+            //System.out.println(thisMenuItem.getDescription());
+            //System.out.println(thisMenuItem.getAllergen());
+            //System.out.println(thisMenuItem.getTimeToPrepare());
+            //System.out.println(thisMenuItem.getPrice());
             
            try {            
                dbManager.addMenuItemToDatabase(thisMenuItem);
            } catch (SQLException ex) {
                Logger.getLogger(NewMenuItemController.class.getName()).log(Level.SEVERE, null, ex);
            }
+           Stage stage;
+           stage = (Stage) preperationTime.getScene().getWindow();
+           stage.close();
         }
         
         // if none of the fields are empty, then do stuff , else do nothing 
