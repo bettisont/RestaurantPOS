@@ -40,9 +40,19 @@ import javafx.stage.Stage;
 public class ManagerGUIController implements Initializable {
     
     private DatabaseManager dbManager; 
+    private ObservableList<MenuItem> menuItemsInDatabase;
     
-    @FXML
-    Button addItemButton;
+
+    @FXML Button addItemButton;
+    @FXML Button refreshEditMenuTableButton;
+    
+    @FXML private TableView<MenuItem> editMenuTable; 
+    @FXML private TableColumn<MenuItem, String> categoryColumn;
+    @FXML private TableColumn<MenuItem, String> nameColumn;
+    @FXML private TableColumn<MenuItem, String> descriptionColumn;
+    @FXML private TableColumn<MenuItem, Float> priceColumn;
+    @FXML private TableColumn<MenuItem, Boolean> allergenColumn;
+    @FXML private TableColumn<MenuItem, String> prepTimeColumn;
     
     //configure the table 
    // @FXML private TableView<MenuItem> tableView; 
@@ -59,18 +69,31 @@ public class ManagerGUIController implements Initializable {
      //   nameCol.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("name"));
      //   categoryCol.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("category"));
         
-        dbManager = new DatabaseManager();
-        ObservableList<MenuItem> menuItemsInDatabase;
+
+        
+        fetchAndUpdateEditMenuTable();
+        
+    }   
     
+    @FXML
+    private void fetchAndUpdateEditMenuTable(){
+        dbManager = new DatabaseManager();
         try {
-            // load dummy data
-            //   tableView.setItems(dbManager.getMenuItems());
             menuItemsInDatabase = dbManager.getAllMenuItems();
         } catch (SQLException ex) {
             Logger.getLogger(ManagerGUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        // set up the columns 
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("description"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("name"));
+        categoryColumn.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("category"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<MenuItem, Float>("price"));
+        allergenColumn.setCellValueFactory(new PropertyValueFactory<MenuItem, Boolean>("allergen"));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("prepTimeColumn"));
         
-    }   
+        // display the data 
+        editMenuTable.setItems(menuItemsInDatabase);
+    }
 
     
     @FXML
@@ -82,4 +105,5 @@ public class ManagerGUIController implements Initializable {
         stage.initOwner(addItemButton.getScene().getWindow());
         stage.showAndWait();
     }
+    
 }

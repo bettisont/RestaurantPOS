@@ -27,24 +27,24 @@ public class MenuItem {
         this.timeToPrepare = new SimpleStringProperty(timeToPrepare);
     }
 
-    public SimpleStringProperty getCategory() {
-        return category;
+    public String getCategory() {
+        return category.get();
     }
 
     public void setCategory(SimpleStringProperty category) {
         this.category = category;
     }
 
-    public SimpleStringProperty getName() {
-        return name;
+    public String getName() {
+        return name.get();
     }
 
     public void setName(SimpleStringProperty name) {
         this.name = name;
     }
 
-    public SimpleStringProperty getDescription() {
-        return description;
+    public String getDescription() {
+        return description.get();
     }
 
     public void setDescription(SimpleStringProperty description) {
@@ -59,8 +59,8 @@ public class MenuItem {
         this.price = price;
     }
 
-    public SimpleStringProperty getTimeToPrepare() {
-        return timeToPrepare;
+    public String getTimeToPrepare() {
+        return timeToPrepare.get();
     }
 
     public void setTimeToPrepare(SimpleStringProperty timeToPrepare) {

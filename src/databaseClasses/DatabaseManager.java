@@ -56,16 +56,16 @@ public class DatabaseManager {
     }
     
     public void addMenuItemToDatabase(MenuItem menuItem) throws SQLException{
-        String category = menuItem.getCategory().get();
-        String name = menuItem.getName().get();
-        String description = menuItem.getDescription().get();
+        String category = menuItem.getCategory();
+        String name = menuItem.getName();
+        String description = menuItem.getDescription();
         float price = menuItem.getPrice();
         Boolean allergen = menuItem.getAllergen();
         int allergenForDb = 1;
         if(!(allergen)){
             allergenForDb = 0;
         }
-        String prepTime = menuItem.getTimeToPrepare().get();
+        String prepTime = menuItem.getTimeToPrepare();
         String sql = "INSERT INTO `menuItems` (`ID`, `category`, `name`, `description`, `price`, `allergen`, `prepTime`) VALUES (NULL,"+"'"+category+"'"+","+"'"+name+"'"+","+"'"+description+"'"+","+"'"+price+"'"+","+"'"+allergenForDb+"'"+","+"'"+prepTime+"'"+")";
         Statement statement = connection.createStatement();
         statement.execute(sql);

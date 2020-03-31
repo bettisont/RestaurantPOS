@@ -29,16 +29,18 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView layoutX="75.0" layoutY="84.0" prefHeight="200.0" prefWidth="550.0">
+                  <TableView fx:id="editMenuTable" layoutX="49.0" layoutY="84.0" prefHeight="200.0" prefWidth="600.0">
                     <columns>
-                      <TableColumn prefWidth="110.0" resizable="false" text="Category" />
-                      <TableColumn prefWidth="110.0" resizable="false" text="Name" />
-                        <TableColumn prefWidth="110.0" resizable="false" text="Description" />
-                        <TableColumn prefWidth="110.0" resizable="false" text="Price" />
-                        <TableColumn prefWidth="110.0" resizable="false" text="Allergen" />
+                      <TableColumn fx:id="categoryColumn" prefWidth="100.0" resizable="false" text="Category" />
+                      <TableColumn fx:id="nameColumn" prefWidth="100.0" resizable="false" text="Name" />
+                        <TableColumn fx:id="descriptionColumn" prefWidth="100.0" resizable="false" text="Description" />
+                        <TableColumn fx:id="priceColumn" prefWidth="100.0" resizable="false" text="Price" />
+                        <TableColumn fx:id="allergenColumn" prefWidth="100.0" resizable="false" text="Allergen" />
+                        <TableColumn fx:id="prepTimeColumn" prefWidth="100.0" text="Prep Time" />
                     </columns>
                   </TableView>
-                  <Button fx:id="addItemButton" layoutX="316.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleAddItemButtonAction" text="Add Item" textFill="#786ed3" />
+                  <Button fx:id="addItemButton" layoutX="315.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleAddItemButtonAction" text="Add Item" textFill="#786ed3" />
+                  <Button fx:id="refreshEditMenuTableButton" layoutX="320.0" layoutY="304.0" mnemonicParsing="false" onAction="#fetchAndUpdateEditMenuTable" text="Refresh" textFill="#786ed3" />
                </children>
             </AnchorPane>
         </content>
