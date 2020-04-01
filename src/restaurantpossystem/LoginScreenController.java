@@ -37,6 +37,9 @@ public class LoginScreenController implements Initializable {
         
         chefWindow.setScene(scene);
         chefWindow.show();
+        Stage loginStage;
+        loginStage = (Stage) label.getScene().getWindow();
+        loginStage.close();
     }
     
     @FXML
@@ -49,6 +52,9 @@ public class LoginScreenController implements Initializable {
         
         chefWindow.setScene(scene);
         chefWindow.show();
+        Stage loginStage;
+        loginStage = (Stage) label.getScene().getWindow();
+        loginStage.close();
     }
     
     @FXML
@@ -61,6 +67,9 @@ public class LoginScreenController implements Initializable {
         
         chefWindow.setScene(scene);
         chefWindow.show();
+        Stage loginStage;
+        loginStage = (Stage) label.getScene().getWindow();
+        loginStage.close();
     }
     
     @Override

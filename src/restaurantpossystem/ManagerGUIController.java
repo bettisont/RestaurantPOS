@@ -46,6 +46,23 @@ public class ManagerGUIController implements Initializable {
     @FXML Button addItemButton;
     @FXML Button refreshEditMenuTableButton;
     
+    @FXML Button table1;
+    @FXML Button table2;
+    @FXML Button table3;
+    @FXML Button table4;
+    @FXML Button table5;
+    @FXML Button table6;
+    @FXML Button table7;
+    @FXML Button table8;
+    @FXML Button table9;
+    @FXML Button table10;
+    @FXML Button table11;
+    @FXML Button table12;
+    @FXML Button table13;
+    @FXML Button table14;
+    @FXML Button table15;
+    @FXML Button table16;
+    
     @FXML private TableView<MenuItem> editMenuTable; 
     @FXML private TableColumn<MenuItem, String> categoryColumn;
     @FXML private TableColumn<MenuItem, String> nameColumn;
@@ -84,12 +101,12 @@ public class ManagerGUIController implements Initializable {
             Logger.getLogger(ManagerGUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
         // set up the columns 
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("description"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("name"));
-        categoryColumn.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("category"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<MenuItem, Float>("price"));
-        allergenColumn.setCellValueFactory(new PropertyValueFactory<MenuItem, Boolean>("allergen"));
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("prepTimeColumn"));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        allergenColumn.setCellValueFactory(new PropertyValueFactory<>("allergen"));
+        prepTimeColumn.setCellValueFactory(new PropertyValueFactory<>("timeToPrepare"));
         
         // display the data 
         editMenuTable.setItems(menuItemsInDatabase);
@@ -104,6 +121,18 @@ public class ManagerGUIController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(addItemButton.getScene().getWindow());
         stage.showAndWait();
+    }
+    
+    @FXML
+    private void handleTableButtonAction(ActionEvent event){
+        
+        Button tableBtn = (Button) event.getSource();
+        displayTable(tableBtn.getText());
+        
+    }
+    
+    private void displayTable(String table){
+        System.out.println("display table data for: " + table);
     }
     
 }
