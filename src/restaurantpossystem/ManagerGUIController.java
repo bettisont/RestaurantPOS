@@ -12,6 +12,8 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,28 +43,43 @@ public class ManagerGUIController implements Initializable {
     
     private DatabaseManager dbManager; 
     private ObservableList<MenuItem> menuItemsInDatabase;
+    private List<Table> tables;
     
 
     @FXML Button addItemButton;
     @FXML Button refreshEditMenuTableButton;
     
-    @FXML Button table1;
-    @FXML Button table2;
-    @FXML Button table3;
-    @FXML Button table4;
-    @FXML Button table5;
-    @FXML Button table6;
-    @FXML Button table7;
-    @FXML Button table8;
-    @FXML Button table9;
-    @FXML Button table10;
-    @FXML Button table11;
-    @FXML Button table12;
-    @FXML Button table13;
-    @FXML Button table14;
-    @FXML Button table15;
-    @FXML Button table16;
-    
+    @FXML Button tableButton1;
+    @FXML Button tableButton2;
+    @FXML Button tableButton3;
+    @FXML Button tableButton4;
+    @FXML Button tableButton5;
+    @FXML Button tableButton6;
+    @FXML Button tableButton7;
+    @FXML Button tableButton8;
+    @FXML Button tableButton9;
+    @FXML Button tableButton10;
+    @FXML Button tableButton11;
+    @FXML Button tableButton12;
+    @FXML Button tableButton13;
+    @FXML Button tableButton14;
+    @FXML Button tableButton15;
+    @FXML Button tableButton16;
+    @FXML Button tableButton17;
+    @FXML Button tableButton18;
+    @FXML Button tableButton19;
+    @FXML Button tableButton20;
+    @FXML Button tableButton21;
+    @FXML Button tableButton22;
+    @FXML Button tableButton23;
+    @FXML Button tableButton24;
+    @FXML Button tableButton25;
+    @FXML Button tableButton26;
+    @FXML Button tableButton27;
+    @FXML Button tableButton28;
+    @FXML Button tableButton29;
+    @FXML Button tableButton30;
+
     @FXML private TableView<MenuItem> editMenuTable; 
     @FXML private TableColumn<MenuItem, String> categoryColumn;
     @FXML private TableColumn<MenuItem, String> nameColumn;
@@ -89,6 +106,8 @@ public class ManagerGUIController implements Initializable {
 
         
         fetchAndUpdateEditMenuTable();
+        
+        tables = new ArrayList<Table>();
         
     }   
     
@@ -124,15 +143,33 @@ public class ManagerGUIController implements Initializable {
     }
     
     @FXML
-    private void handleTableButtonAction(ActionEvent event){
+    public void handleTableButtonAction(ActionEvent event) throws IOException, SQLException{
         
         Button tableBtn = (Button) event.getSource();
-        displayTable(tableBtn.getText());
+        int tableNum = Integer.parseInt(tableBtn.getText().split(" ")[1]);
+        Boolean isTableOccupied = false;
+        Table thisTable = new Table(tableNum);
+        if(!dbManager.isTableOccupied(tableNum)){
+            tables.add(thisTable);
+        }
+        
+        
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("FXMLTableView.fxml"));
+   
+        Parent parent = loader.load();
+        Scene scene = new Scene(parent);
+        
+        // access the controller and call a method 
+        FXMLTableViewController controller = loader.getController();
+        controller.initTableData(thisTable);
+        
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        
+        window.setScene(scene);
         
     }
     
-    private void displayTable(String table){
-        System.out.println("display table data for: " + table);
-    }
+
     
 }

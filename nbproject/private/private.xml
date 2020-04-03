@@ -4,11 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/NewMenuItemController.java</file>
-            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/RestaurantPOSSystem.java</file>
-            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/newMenuItem.fxml</file>
-            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/databaseClasses/MenuItem.java</file>
-            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/utils/CSSFile.css</file>
-            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/databaseClasses/DatabaseManager.java</file>
+            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/Table.java</file>
+            <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/FXMLTableViewController.java</file>
             <file>file:/Users/timbettison/Documents/UniWork/Year%203/FYP/FYPCode/RestaurantPOSSystem/src/restaurantpossystem/ManagerGUIController.java</file>
         </group>
     </open-files>

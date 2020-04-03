@@ -98,4 +98,30 @@ public class DatabaseManager {
         });
         return menuItemObjects;
     }
+    
+    public ObservableList<MenuItem> getSpecifiedFoodCategory(String category) throws SQLException{
+        ObservableList<String> listOfMenuItems = FXCollections.observableArrayList();
+        String sql = "select * from `menuItems` where category = '"+category+"'";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            listOfMenuItems.add(rs.getString("category") +", "+ rs.getString("name") +", "+ rs.getString("description") +", "+ rs.getString("price") +", "+ rs.getString("allergen") +", "+ rs.getString("prepTime"));
+        }
+        return convertStringsToMenuItems(listOfMenuItems);
+    }
+    
+    
+//     *
+//     * @param tableNumber
+//     * @return a Boolean indicating whether the table is occupied (i.e. has an order in progress, etc)
+//     * @throws SQLException 
+//     */
+    public Boolean isTableOccupied(int tableNumber) throws SQLException{
+        String sql = "select * from tables where tableNumber =" + tableNumber;
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        return rs.next();
+    }
+    
+
 }

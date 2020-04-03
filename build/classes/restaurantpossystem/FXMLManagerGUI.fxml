@@ -8,28 +8,42 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="restaurantpossystem.ManagerGUIController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="restaurantpossystem.ManagerGUIController">
   <tabs>
     <Tab text="Tables ">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="table1" layoutX="5.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 1" textFill="#786ed3" />
-                  <Button fx:id="table2" layoutX="205.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 2" textFill="#786ed3" />
-                  <Button fx:id="table3" layoutX="405.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 3" textFill="#786ed3" />
-                  <Button fx:id="table4" layoutX="605.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 4" textFill="#786ed3" />
-                  <Button fx:id="table8" layoutX="605.0" layoutY="145.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 8" textFill="#786ed3" />
-                  <Button fx:id="table5" layoutX="5.0" layoutY="145.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 5" textFill="#786ed3" />
-                  <Button fx:id="table6" layoutX="205.0" layoutY="145.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 6" textFill="#786ed3" />
-                  <Button fx:id="table7" layoutX="405.0" layoutY="145.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 7" textFill="#786ed3" />
-                  <Button fx:id="table12" layoutX="605.0" layoutY="237.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 12" textFill="#786ed3" />
-                  <Button fx:id="table15" layoutX="405.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 15" textFill="#786ed3" />
-                  <Button fx:id="table13" layoutX="5.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 13" textFill="#786ed3" />
-                  <Button fx:id="table14" layoutX="205.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 14" textFill="#786ed3" />
-                  <Button fx:id="table16" layoutX="605.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 16" textFill="#786ed3" />
-                  <Button fx:id="table9" layoutX="5.0" layoutY="237.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 9" textFill="#786ed3" />
-                  <Button fx:id="table10" layoutX="205.0" layoutY="237.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 10" textFill="#786ed3" />
-                  <Button fx:id="table11" layoutX="405.0" layoutY="237.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="190.0" text="Table 11" textFill="#786ed3" />
+                  <Button fx:id="tableButton1" layoutX="5.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 1" textFill="#786ed3" />
+                  <Button fx:id="tableButton2" layoutX="205.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 2" textFill="#786ed3" />
+                  <Button fx:id="tableButton3" layoutX="405.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 3" textFill="#786ed3" />
+                  <Button fx:id="tableButton4" layoutX="605.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 4" textFill="#786ed3" />
+                  <Button fx:id="tableButton5" layoutX="805.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 5" textFill="#786ed3" />
+                  <Button fx:id="tableButton6" layoutX="5.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 6" textFill="#786ed3" />
+                  <Button fx:id="tableButton9" layoutX="605.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 9" textFill="#786ed3" />
+                  <Button fx:id="tableButton8" layoutX="405.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 8" textFill="#786ed3" />
+                  <Button fx:id="tableButton7" layoutX="205.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 7" textFill="#786ed3" />
+                  <Button fx:id="tableButton10" layoutX="805.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 10" textFill="#786ed3" />
+                  <Button fx:id="tableButton18" layoutX="406.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 18" textFill="#786ed3" />
+                  <Button fx:id="tableButton11" layoutX="5.0" layoutY="220.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 11" textFill="#786ed3" />
+                  <Button fx:id="tableButton14" layoutX="605.0" layoutY="220.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 14" textFill="#786ed3" />
+                  <Button fx:id="tableButton13" layoutX="405.0" layoutY="220.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 13" textFill="#786ed3" />
+                  <Button fx:id="tableButton16" layoutX="5.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 16" textFill="#786ed3" />
+                  <Button fx:id="tableButton12" layoutX="205.0" layoutY="220.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 12" textFill="#786ed3" />
+                  <Button fx:id="tableButton17" layoutX="206.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 17" textFill="#786ed3" />
+                  <Button fx:id="tableButton20" layoutX="805.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 20" textFill="#786ed3" />
+                  <Button fx:id="tableButton19" layoutX="605.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 19" textFill="#786ed3" />
+                  <Button fx:id="tableButton15" layoutX="805.0" layoutY="220.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 15" textFill="#786ed3" />
+                  <Button fx:id="tableButton24" layoutX="605.0" layoutY="420.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 24" textFill="#786ed3" />
+                  <Button fx:id="tableButton21" layoutX="5.0" layoutY="420.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 21" textFill="#786ed3" />
+                  <Button fx:id="tableButton25" layoutX="805.0" layoutY="420.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 25" textFill="#786ed3" />
+                  <Button fx:id="tableButton23" layoutX="406.0" layoutY="420.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 23" textFill="#786ed3" />
+                  <Button fx:id="tableButton22" layoutX="206.0" layoutY="420.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 22" textFill="#786ed3" />
+                  <Button fx:id="tableButton28" layoutX="405.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 28" textFill="#786ed3" />
+                  <Button fx:id="tableButton30" layoutX="805.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 30" textFill="#786ed3" />
+                  <Button fx:id="tableButton27" layoutX="209.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 27" textFill="#786ed3" />
+                  <Button fx:id="tableButton29" layoutX="608.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 29" textFill="#786ed3" />
+                  <Button fx:id="tableButton26" layoutX="5.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 26" textFill="#786ed3" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -42,18 +56,18 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="editMenuTable" layoutX="49.0" layoutY="52.0" prefHeight="300.0" prefWidth="702.0">
+                  <TableView fx:id="editMenuTable" layoutX="41.0" layoutY="49.0" prefHeight="519.0" prefWidth="918.0">
                     <columns>
-                      <TableColumn fx:id="categoryColumn" prefWidth="117.0" resizable="false" text="Category" />
-                      <TableColumn fx:id="nameColumn" prefWidth="117.0" resizable="false" text="Name" />
-                        <TableColumn fx:id="descriptionColumn" prefWidth="117.0" resizable="false" text="Description" />
-                        <TableColumn fx:id="priceColumn" prefWidth="117.0" resizable="false" text="Price" />
-                        <TableColumn fx:id="allergenColumn" prefWidth="117.0" resizable="false" text="Allergen" />
-                        <TableColumn fx:id="prepTimeColumn" prefWidth="117.0" text="Prep Time" />
+                      <TableColumn fx:id="categoryColumn" prefWidth="153.0" resizable="false" text="Category" />
+                      <TableColumn fx:id="nameColumn" prefWidth="153.0" resizable="false" text="Name" />
+                        <TableColumn fx:id="descriptionColumn" prefWidth="153.0" resizable="false" text="Description" />
+                        <TableColumn fx:id="priceColumn" prefWidth="153.0" resizable="false" text="Price" />
+                        <TableColumn fx:id="allergenColumn" prefWidth="153.0" resizable="false" text="Allergen" />
+                        <TableColumn fx:id="prepTimeColumn" prefWidth="153.0" text="Prep Time" />
                     </columns>
                   </TableView>
-                  <Button fx:id="addItemButton" layoutX="424.0" layoutY="368.0" mnemonicParsing="false" onAction="#handleAddItemButtonAction" text="Add Item" textFill="#786ed3" />
-                  <Button fx:id="refreshEditMenuTableButton" layoutX="322.0" layoutY="368.0" mnemonicParsing="false" onAction="#fetchAndUpdateEditMenuTable" text="Refresh" textFill="#786ed3" />
+                  <Button fx:id="addItemButton" layoutX="550.0" layoutY="577.0" mnemonicParsing="false" onAction="#handleAddItemButtonAction" text="Add Item" textFill="#786ed3" />
+                  <Button fx:id="refreshEditMenuTableButton" layoutX="397.0" layoutY="577.0" mnemonicParsing="false" onAction="#fetchAndUpdateEditMenuTable" text="Refresh" textFill="#786ed3" />
                </children>
             </AnchorPane>
         </content>

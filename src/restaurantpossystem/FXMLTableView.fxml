@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="restaurantpossystem.FXMLTableViewController">
+   <children>
+      <Label fx:id="tableLabel" layoutX="400.0" layoutY="15.0" prefHeight="26.0" prefWidth="250.0" textAlignment="CENTER" textFill="#786ed3">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font></Label>
+      <TextArea fx:id="currentOrderTextArea" editable="false" layoutX="14.0" layoutY="60.0" prefHeight="522.0" prefWidth="231.0" />
+      <Button layoutX="15.0" layoutY="594.0" mnemonicParsing="false" onAction="#handleSendToKitchenButton" prefHeight="42.0" prefWidth="231.0" text="Send To Kitchen" textFill="#27ae60" />
+      <Pane fx:id="menuButtonsPane" layoutX="266.0" layoutY="60.0" prefHeight="531.0" prefWidth="719.0">
+         <children>
+            <Button layoutX="100.0" layoutY="127.0" mnemonicParsing="false" onAction="#displayMenuItems" prefHeight="100.0" prefWidth="200.0" text="Starter" textFill="#786ed3" />
+            <Button layoutX="100.0" layoutY="303.0" mnemonicParsing="false" onAction="#displayMenuItems" prefHeight="100.0" prefWidth="200.0" text="Main" textFill="#786ed3" />
+            <Button layoutX="414.0" layoutY="127.0" mnemonicParsing="false" onAction="#displayMenuItems" prefHeight="100.0" prefWidth="200.0" text="Side" textFill="#786ed3" />
+            <Button layoutX="414.0" layoutY="303.0" mnemonicParsing="false" onAction="#displayMenuItems" prefHeight="100.0" prefWidth="200.0" text="Dessert" textFill="#786ed3" />
+            <Separator layoutY="516.0" prefHeight="3.0" prefWidth="719.0" />
+            <Separator layoutY="-1.0" prefHeight="3.0" prefWidth="719.0" />
+         </children>
+      </Pane>
+      <Button fx:id="backButton" layoutX="69.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="27.0" prefWidth="124.0" text="Back" textFill="#e84623" />
+      <Button layoutX="755.0" layoutY="594.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="231.0" text="View Bill" textFill="#2a292f" />
+      <Text fx:id="currentOrderPriceText" layoutX="21.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="220.0" />
+   </children>
+</AnchorPane>
