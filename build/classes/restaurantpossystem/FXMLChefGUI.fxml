@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="restaurantpossystem.FXMLChefGUIController">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="restaurantpossystem.FXMLChefGUIController">
    <children>
-      <Label layoutX="375.0" layoutY="292.0" text="chef gui" />
+      <Text layoutX="217.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Incoming Orders" />
+      <VBox layoutX="37.0" layoutY="48.0" prefHeight="593.0" prefWidth="450.0" />
+      <VBox layoutX="527.0" layoutY="48.0" prefHeight="593.0" prefWidth="450.0" />
+      <Separator layoutX="504.0" layoutY="48.0" orientation="VERTICAL" prefHeight="593.0" prefWidth="7.0" />
+      <Text layoutX="703.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inprogress Orders" />
    </children>
 </AnchorPane>
