@@ -123,5 +123,35 @@ public class DatabaseManager {
         return rs.next();
     }
     
-
+    public void insertTableToDb(String tableNumber) throws SQLException{
+        String sql = "INSERT INTO `tables` (`ID`, `tableNumber`) VALUES (NULL, "+"'"+tableNumber+"'"+")";
+        Statement statement = connection.createStatement();
+        statement.execute(sql);
+    }
+    
+    public String getTableID(String tableNumber) throws SQLException, Exception{
+        String sql = "SELECT ID FROM tables WHERE tableNumber = "+tableNumber;
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            return String.valueOf(rs.getInt("id"));
+        }
+        throw new Exception("no table found");
+    }
+    
+    public String getMenuItemID(MenuItem menuItem) throws SQLException, Exception{
+        String sql = "SELECT id FROM menuItems WHERE name = "+"'"+menuItem.getName().trim()+"'"+" AND description = "+"'"+menuItem.getDescription().trim()+"'"+"";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            return String.valueOf(rs.getInt("id"));
+        }
+        throw new Exception("menu item not found");
+    }
+    
+    public void insertOrderToDb(String tableID, String menuItemID) throws SQLException{
+        String sql = "INSERT INTO `orders` (`ID`, `tableID`, `menuItemID`, `status`) VALUES (NULL, "+"'"+tableID+"'"+", "+"'"+menuItemID+"'"+", 'waiting')";
+        Statement statement = connection.createStatement();
+        statement.execute(sql);
+    }
 }

@@ -15,7 +15,7 @@
             <Font name="System Bold" size="30.0" />
          </font></Label>
       <TextArea fx:id="currentOrderTextArea" editable="false" layoutX="14.0" layoutY="60.0" prefHeight="522.0" prefWidth="231.0" />
-      <Button layoutX="15.0" layoutY="594.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="231.0" text="Send To Kitchen" textFill="#27ae60" />
+      <Button layoutX="15.0" layoutY="594.0" mnemonicParsing="false" onAction="#handleSendToKitchenButton" prefHeight="42.0" prefWidth="231.0" text="Send To Kitchen" textFill="#27ae60" />
       <Pane fx:id="menuButtonsPane" layoutX="266.0" layoutY="60.0" prefHeight="531.0" prefWidth="719.0">
          <children>
             <Button layoutX="100.0" layoutY="127.0" mnemonicParsing="false" onAction="#displayMenuItems" prefHeight="100.0" prefWidth="200.0" text="Starter" textFill="#786ed3" />

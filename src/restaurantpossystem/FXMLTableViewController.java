@@ -130,11 +130,22 @@ public class FXMLTableViewController implements Initializable {
     }
     
     @FXML
-    private void handleSendToKitchenButton(ActionEvent event){
+    private void handleSendToKitchenButton(ActionEvent event) throws SQLException, Exception{
         System.out.println("Sending order to Kitchen!");
-        // set table as occupied 
-        // set the tables order in progress as the currentOrderList (on the database)
-        // call a method in the chef thing that will display a pending order 
+        // add the table in the tables schema 
+        String tableNumber = tableLabel.getText().split(" ")[1];
+        dbManager.insertTableToDb(tableNumber);
+
+        // for each item in the current order list 
+        for(Object item : currentOrder){
+            MenuItem thisItem = (MenuItem) item;
+            // create an entry in the order table
+            // the entry must have a table ID of the current table 
+            // the entry must have a menuItemID of the menuItem 
+            String tableID = dbManager.getTableID(tableNumber);
+            String menuItemID = dbManager.getMenuItemID(thisItem);
+            dbManager.insertOrderToDb(tableID, menuItemID);
+        }
     }
     
 }
