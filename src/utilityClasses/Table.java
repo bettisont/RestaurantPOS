@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package restaurantpossystem;
+package utilityClasses;
 
-import databaseClasses.MenuItem;
+import utilityClasses.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +13,11 @@ import java.util.List;
  *
  * @author timbettison
  */
-class Table {
+public class Table {
     
     int tableNumber;
     // the order that is being taken by the waiting staff 
-    List<MenuItem> currentOrder; 
+    List<MenuItem> orderWaiting; 
     
     // the order that has been sent to the kitchen 
     List<MenuItem> orderInProgress;
@@ -30,7 +30,8 @@ class Table {
     
     public Table(int tableNumber){
         this.tableNumber = tableNumber;
-        this.currentOrder = new ArrayList<>();
+        this.orderWaiting = new ArrayList<>();
+        this.orderInProgress = new ArrayList();
         this.bill = new ArrayList<>();
         hasPaid = false;
     }
@@ -43,13 +44,23 @@ class Table {
         this.tableNumber = tableNumbber;
     }
 
-    public List<MenuItem> getOrder() {
-        return currentOrder;
+    public List<MenuItem> getOrderWaiting() {
+        return orderWaiting;
     }
 
-    public void setOrder(List<MenuItem> order) {
-        this.currentOrder = order;
+    public void setOrderWaiting(List<MenuItem> orderWaiting) {
+        this.orderWaiting = orderWaiting;
     }
+
+    public List<MenuItem> getOrderInProgress() {
+        return orderInProgress;
+    }
+
+    public void setOrderInProgress(List<MenuItem> orderInProgress) {
+        this.orderInProgress = orderInProgress;
+    }
+
+
 
     public List<MenuItem> getBill() {
         return bill;
@@ -67,6 +78,20 @@ class Table {
         this.hasPaid = hasPaid;
     }
     
+    public void appendOrderInProgress(MenuItem item){
+        orderInProgress.add(item);
+    }
     
+    public void removeOrderInProgress(MenuItem item){
+        orderInProgress.remove(item);
+    }
     
+    public void appendOrderWaiting(MenuItem item){
+        orderWaiting.add(item);
+    }
+    
+    public void removeOrderWaiting(MenuItem item){
+        orderWaiting.remove(item);
+    }
+   
 }

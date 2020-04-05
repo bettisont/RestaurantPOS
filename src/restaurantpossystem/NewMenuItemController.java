@@ -5,8 +5,8 @@
  */
 package restaurantpossystem;
 
-import databaseClasses.DatabaseManager;
-import databaseClasses.MenuItem;
+import utilityClasses.DatabaseManager;
+import utilityClasses.MenuItem;
 import java.io.IOException;
 import static java.lang.System.console;
 import java.net.URL;

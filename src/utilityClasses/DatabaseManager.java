@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package databaseClasses;
+package utilityClasses;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +28,7 @@ public class DatabaseManager {
     private static final String userName = "root";
     private static final String password = "root";
     private static final String conn = "jdbc:mysql://localhost:8889/restaurantManagementSystem";
-    private Connection connection; 
+    private static Connection connection; 
     
     public DatabaseManager(){
         try {
@@ -82,6 +83,19 @@ public class DatabaseManager {
         return convertStringsToMenuItems(listOfMenuItems);
     }
     
+    public MenuItem getMenuItem(int id) throws SQLException{
+        ObservableList<String> listOfMenuItems = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM menuItems WHERE ID = "+id;
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            listOfMenuItems.add(rs.getString("category") +", "+ rs.getString("name") +", "+ rs.getString("description") +", "+ rs.getString("price") +", "+ rs.getString("allergen") +", "+ rs.getString("prepTime"));
+        }
+        return convertStringsToMenuItems(listOfMenuItems).get(0);
+    }
+    
+    
+    
     private ObservableList<MenuItem> convertStringsToMenuItems(ObservableList<String> menuItems){
         ObservableList<MenuItem> menuItemObjects = FXCollections.observableArrayList();
         menuItems.stream().map((menuItem) -> menuItem.split(",")).map((split) -> {
@@ -129,12 +143,22 @@ public class DatabaseManager {
         statement.execute(sql);
     }
     
-    public String getTableID(String tableNumber) throws SQLException, Exception{
+    public static String getTableID(String tableNumber) throws SQLException, Exception{
         String sql = "SELECT ID FROM tables WHERE tableNumber = "+tableNumber;
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while(rs.next()){
             return String.valueOf(rs.getInt("id"));
+        }
+        throw new Exception("no table found");
+    }
+    
+    public static String getTableNumber(int tableID) throws SQLException, Exception{
+        String sql = "SELECT tableNumber FROM tables WHERE ID = "+tableID;
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            return String.valueOf(rs.getInt("tableNumber"));
         }
         throw new Exception("no table found");
     }
@@ -154,4 +178,16 @@ public class DatabaseManager {
         Statement statement = connection.createStatement();
         statement.execute(sql);
     }
+
+    public List<Order> getAllOrders() throws SQLException {
+        List<Order> orders = new ArrayList();
+        String sql = "SELECT * FROM orders";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            orders.add(new Order(rs.getString("status"), rs.getInt("tableid"), rs.getInt("menuitemid")));
+        }
+        return orders;
+    }
+    
 }
