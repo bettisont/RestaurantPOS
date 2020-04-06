@@ -41,98 +41,128 @@ import javafx.stage.Stage;
  * @author timbettison
  */
 public class ManagerGUIController implements Initializable {
-    
-    private DatabaseManager dbManager; 
+
+    private DatabaseManager dbManager;
     private ObservableList<MenuItem> menuItemsInDatabase;
     private List<Table> tables;
-    
 
-    @FXML Button addItemButton;
-    @FXML Button refreshEditMenuTableButton;
-    
-    @FXML Button tableButton1;
-    @FXML Button tableButton2;
-    @FXML Button tableButton3;
-    @FXML Button tableButton4;
-    @FXML Button tableButton5;
-    @FXML Button tableButton6;
-    @FXML Button tableButton7;
-    @FXML Button tableButton8;
-    @FXML Button tableButton9;
-    @FXML Button tableButton10;
-    @FXML Button tableButton11;
-    @FXML Button tableButton12;
-    @FXML Button tableButton13;
-    @FXML Button tableButton14;
-    @FXML Button tableButton15;
-    @FXML Button tableButton16;
-    @FXML Button tableButton17;
-    @FXML Button tableButton18;
-    @FXML Button tableButton19;
-    @FXML Button tableButton20;
-    @FXML Button tableButton21;
-    @FXML Button tableButton22;
-    @FXML Button tableButton23;
-    @FXML Button tableButton24;
-    @FXML Button tableButton25;
-    @FXML Button tableButton26;
-    @FXML Button tableButton27;
-    @FXML Button tableButton28;
-    @FXML Button tableButton29;
-    @FXML Button tableButton30;
+    @FXML
+    Button addItemButton;
+    @FXML
+    Button refreshEditMenuTableButton;
 
-    @FXML private TableView<MenuItem> editMenuTable; 
-    @FXML private TableColumn<MenuItem, String> categoryColumn;
-    @FXML private TableColumn<MenuItem, String> nameColumn;
-    @FXML private TableColumn<MenuItem, String> descriptionColumn;
-    @FXML private TableColumn<MenuItem, Float> priceColumn;
-    @FXML private TableColumn<MenuItem, Boolean> allergenColumn;
-    @FXML private TableColumn<MenuItem, String> prepTimeColumn;
-    
-    //configure the table 
-   // @FXML private TableView<MenuItem> tableView; 
-   // @FXML private TableColumn<MenuItem, String> nameCol;
-   // @FXML private TableColumn<MenuItem, String> categoryCol;
+    @FXML
+    Button tableButton1;
+    @FXML
+    Button tableButton2;
+    @FXML
+    Button tableButton3;
+    @FXML
+    Button tableButton4;
+    @FXML
+    Button tableButton5;
+    @FXML
+    Button tableButton6;
+    @FXML
+    Button tableButton7;
+    @FXML
+    Button tableButton8;
+    @FXML
+    Button tableButton9;
+    @FXML
+    Button tableButton10;
+    @FXML
+    Button tableButton11;
+    @FXML
+    Button tableButton12;
+    @FXML
+    Button tableButton13;
+    @FXML
+    Button tableButton14;
+    @FXML
+    Button tableButton15;
+    @FXML
+    Button tableButton16;
+    @FXML
+    Button tableButton17;
+    @FXML
+    Button tableButton18;
+    @FXML
+    Button tableButton19;
+    @FXML
+    Button tableButton20;
+    @FXML
+    Button tableButton21;
+    @FXML
+    Button tableButton22;
+    @FXML
+    Button tableButton23;
+    @FXML
+    Button tableButton24;
+    @FXML
+    Button tableButton25;
+    @FXML
+    Button tableButton26;
+    @FXML
+    Button tableButton27;
+    @FXML
+    Button tableButton28;
+    @FXML
+    Button tableButton29;
+    @FXML
+    Button tableButton30;
 
+    @FXML
+    private TableView<MenuItem> editMenuTable;
+    @FXML
+    private TableColumn<MenuItem, String> categoryColumn;
+    @FXML
+    private TableColumn<MenuItem, String> nameColumn;
+    @FXML
+    private TableColumn<MenuItem, String> descriptionColumn;
+    @FXML
+    private TableColumn<MenuItem, Float> priceColumn;
+    @FXML
+    private TableColumn<MenuItem, Boolean> allergenColumn;
+    @FXML
+    private TableColumn<MenuItem, String> prepTimeColumn;
+
+    //configure the table
+    // @FXML private TableView<MenuItem> tableView;
+    // @FXML private TableColumn<MenuItem, String> nameCol;
+    // @FXML private TableColumn<MenuItem, String> categoryCol;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        // set up the columns in the table 
-     //   nameCol.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("name"));
-     //   categoryCol.setCellValueFactory(new PropertyValueFactory<MenuItem, String>("category"));
-        
 
-        
         fetchAndUpdateEditMenuTable();
-        
+
         tables = new ArrayList<Table>();
-        
-    }   
-    
+
+    }
+
     @FXML
-    private void fetchAndUpdateEditMenuTable(){
+    private void fetchAndUpdateEditMenuTable() {
         dbManager = new DatabaseManager();
         try {
             menuItemsInDatabase = dbManager.getAllMenuItems();
         } catch (SQLException ex) {
             Logger.getLogger(ManagerGUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // set up the columns 
+        // set up the columns
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         allergenColumn.setCellValueFactory(new PropertyValueFactory<>("allergen"));
         prepTimeColumn.setCellValueFactory(new PropertyValueFactory<>("timeToPrepare"));
-        
-        // display the data 
+
+        // display the data
         editMenuTable.setItems(menuItemsInDatabase);
     }
 
-    
     @FXML
     private void handleAddItemButtonAction(ActionEvent event) throws IOException {
         Stage stage = new Stage();
@@ -142,35 +172,32 @@ public class ManagerGUIController implements Initializable {
         stage.initOwner(addItemButton.getScene().getWindow());
         stage.showAndWait();
     }
-    
+
     @FXML
-    public void handleTableButtonAction(ActionEvent event) throws IOException, SQLException{
-        
+    public void handleTableButtonAction(ActionEvent event) throws IOException, SQLException {
+
         Button tableBtn = (Button) event.getSource();
         int tableNum = Integer.parseInt(tableBtn.getText().split(" ")[1]);
         Boolean isTableOccupied = false;
         Table thisTable = new Table(tableNum);
-        if(!dbManager.isTableOccupied(tableNum)){
+        if (!dbManager.isTableOccupied(tableNum)) {
             tables.add(thisTable);
         }
-        
-        
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("FXMLTableView.fxml"));
-   
+
         Parent parent = loader.load();
         Scene scene = new Scene(parent);
-        
-        // access the controller and call a method 
+
+        // access the controller and call a method
         FXMLTableViewController controller = loader.getController();
         controller.initTableData(thisTable);
-        
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        
-        window.setScene(scene);
-        
-    }
-    
 
-    
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(scene);
+
+    }
+
 }

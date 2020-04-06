@@ -24,79 +24,74 @@ import restaurantpossystem.ManagerGUIController;
  * @author timbettison
  */
 public class DatabaseManager {
-   
+
     private static final String userName = "root";
     private static final String password = "root";
     private static final String conn = "jdbc:mysql://localhost:8889/restaurantManagementSystem";
-    private static Connection connection; 
-    
-    public DatabaseManager(){
+    private static Connection connection;
+
+    public DatabaseManager() {
         try {
             /**
              * setup the db connection
              */
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:8889/restaurantManagementSystem",userName,password);
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:8889/restaurantManagementSystem", userName, password);
         } catch (SQLException ex) {
             Logger.getLogger(ManagerGUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    
-        /**
-     * 
-     * @return an ObservableList of MenuItems
-     * this will eventually be linked to a database
-     * an ObservableList is very similar to an ArrayList
+
+    /**
+     *
+     * @return an ObservableList of MenuItems this will eventually be linked to
+     * a database an ObservableList is very similar to an ArrayList
      */
     // TODO - alter the functionality of this to retrieve menuItems from the database
     public ObservableList<MenuItem> getMenuItems() {
-        ObservableList<MenuItem> menuItems = FXCollections.observableArrayList(); 
-        
+        ObservableList<MenuItem> menuItems = FXCollections.observableArrayList();
+
         return menuItems;
     }
-    
-    public void addMenuItemToDatabase(MenuItem menuItem) throws SQLException{
+
+    public void addMenuItemToDatabase(MenuItem menuItem) throws SQLException {
         String category = menuItem.getCategory();
         String name = menuItem.getName();
         String description = menuItem.getDescription();
         float price = menuItem.getPrice();
         Boolean allergen = menuItem.getAllergen();
         int allergenForDb = 1;
-        if(!(allergen)){
+        if (!(allergen)) {
             allergenForDb = 0;
         }
         String prepTime = menuItem.getTimeToPrepare();
-        String sql = "INSERT INTO `menuItems` (`ID`, `category`, `name`, `description`, `price`, `allergen`, `prepTime`) VALUES (NULL,"+"'"+category+"'"+","+"'"+name+"'"+","+"'"+description+"'"+","+"'"+price+"'"+","+"'"+allergenForDb+"'"+","+"'"+prepTime+"'"+")";
+        String sql = "INSERT INTO `menuItems` (`ID`, `category`, `name`, `description`, `price`, `allergen`, `prepTime`) VALUES (NULL," + "'" + category + "'" + "," + "'" + name + "'" + "," + "'" + description + "'" + "," + "'" + price + "'" + "," + "'" + allergenForDb + "'" + "," + "'" + prepTime + "'" + ")";
         Statement statement = connection.createStatement();
         statement.execute(sql);
     }
-    
-    public ObservableList<MenuItem> getAllMenuItems() throws SQLException{
+
+    public ObservableList<MenuItem> getAllMenuItems() throws SQLException {
         ObservableList<String> listOfMenuItems = FXCollections.observableArrayList();
         String sql = "SELECT * FROM `menuItems`";
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        while(rs.next()){
-            listOfMenuItems.add(rs.getString("category") +", "+ rs.getString("name") +", "+ rs.getString("description") +", "+ rs.getString("price") +", "+ rs.getString("allergen") +", "+ rs.getString("prepTime"));
+        while (rs.next()) {
+            listOfMenuItems.add(rs.getString("category") + ", " + rs.getString("name") + ", " + rs.getString("description") + ", " + rs.getString("price") + ", " + rs.getString("allergen") + ", " + rs.getString("prepTime"));
         }
         return convertStringsToMenuItems(listOfMenuItems);
     }
-    
-    public MenuItem getMenuItem(int id) throws SQLException{
+
+    public MenuItem getMenuItem(int id) throws SQLException {
         ObservableList<String> listOfMenuItems = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM menuItems WHERE ID = "+id;
+        String sql = "SELECT * FROM menuItems WHERE ID = " + id;
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        while(rs.next()){
-            listOfMenuItems.add(rs.getString("category") +", "+ rs.getString("name") +", "+ rs.getString("description") +", "+ rs.getString("price") +", "+ rs.getString("allergen") +", "+ rs.getString("prepTime"));
+        while (rs.next()) {
+            listOfMenuItems.add(rs.getString("category") + ", " + rs.getString("name") + ", " + rs.getString("description") + ", " + rs.getString("price") + ", " + rs.getString("allergen") + ", " + rs.getString("prepTime"));
         }
         return convertStringsToMenuItems(listOfMenuItems).get(0);
     }
-    
-    
-    
-    private ObservableList<MenuItem> convertStringsToMenuItems(ObservableList<String> menuItems){
+
+    private ObservableList<MenuItem> convertStringsToMenuItems(ObservableList<String> menuItems) {
         ObservableList<MenuItem> menuItemObjects = FXCollections.observableArrayList();
         menuItems.stream().map((menuItem) -> menuItem.split(",")).map((split) -> {
             String name = split[1];
@@ -112,69 +107,68 @@ public class DatabaseManager {
         });
         return menuItemObjects;
     }
-    
-    public ObservableList<MenuItem> getSpecifiedFoodCategory(String category) throws SQLException{
+
+    public ObservableList<MenuItem> getSpecifiedFoodCategory(String category) throws SQLException {
         ObservableList<String> listOfMenuItems = FXCollections.observableArrayList();
-        String sql = "select * from `menuItems` where category = '"+category+"'";
+        String sql = "select * from `menuItems` where category = '" + category + "'";
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        while(rs.next()){
-            listOfMenuItems.add(rs.getString("category") +", "+ rs.getString("name") +", "+ rs.getString("description") +", "+ rs.getString("price") +", "+ rs.getString("allergen") +", "+ rs.getString("prepTime"));
+        while (rs.next()) {
+            listOfMenuItems.add(rs.getString("category") + ", " + rs.getString("name") + ", " + rs.getString("description") + ", " + rs.getString("price") + ", " + rs.getString("allergen") + ", " + rs.getString("prepTime"));
         }
         return convertStringsToMenuItems(listOfMenuItems);
     }
-    
-    
+
 //     *
 //     * @param tableNumber
 //     * @return a Boolean indicating whether the table is occupied (i.e. has an order in progress, etc)
-//     * @throws SQLException 
+//     * @throws SQLException
 //     */
-    public Boolean isTableOccupied(int tableNumber) throws SQLException{
+    public Boolean isTableOccupied(int tableNumber) throws SQLException {
         String sql = "select * from tables where tableNumber =" + tableNumber;
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         return rs.next();
     }
-    
-    public void insertTableToDb(String tableNumber) throws SQLException{
-        String sql = "INSERT INTO `tables` (`ID`, `tableNumber`) VALUES (NULL, "+"'"+tableNumber+"'"+")";
+
+    public void insertTableToDb(String tableNumber) throws SQLException {
+        String sql = "INSERT INTO `tables` (`ID`, `tableNumber`) VALUES (NULL, " + "'" + tableNumber + "'" + ")";
         Statement statement = connection.createStatement();
         statement.execute(sql);
     }
-    
-    public static String getTableID(String tableNumber) throws SQLException, Exception{
-        String sql = "SELECT ID FROM tables WHERE tableNumber = "+tableNumber;
+
+    public String getTableID(String tableNumber) throws SQLException, Exception {
+        String sql = "SELECT ID FROM tables WHERE tableNumber = " + tableNumber;
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        while(rs.next()){
+        while (rs.next()) {
             return String.valueOf(rs.getInt("id"));
         }
         throw new Exception("no table found");
     }
-    
-    public static String getTableNumber(int tableID) throws SQLException, Exception{
-        String sql = "SELECT tableNumber FROM tables WHERE ID = "+tableID;
+
+    public static String getTableNumber(int tableID) throws SQLException, Exception {
+        String sql = "SELECT tableNumber FROM tables WHERE ID = " + tableID;
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        while(rs.next()){
+        while (rs.next()) {
             return String.valueOf(rs.getInt("tableNumber"));
         }
         throw new Exception("no table found");
     }
-    
-    public String getMenuItemID(MenuItem menuItem) throws SQLException, Exception{
-        String sql = "SELECT id FROM menuItems WHERE name = "+"'"+menuItem.getName().trim()+"'"+" AND description = "+"'"+menuItem.getDescription().trim()+"'"+"";
+
+    public String getMenuItemID(MenuItem menuItem) throws SQLException, Exception {
+        String sql = "SELECT id FROM menuItems WHERE name = " + "'" + menuItem.getName().trim() + "'" + " AND description = " + "'" + menuItem.getDescription().trim() + "'" + "";
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        while(rs.next()){
+        while (rs.next()) {
             return String.valueOf(rs.getInt("id"));
         }
         throw new Exception("menu item not found");
     }
-    
-    public void insertOrderToDb(String tableID, String menuItemID) throws SQLException{
-        String sql = "INSERT INTO `orders` (`ID`, `tableID`, `menuItemID`, `status`) VALUES (NULL, "+"'"+tableID+"'"+", "+"'"+menuItemID+"'"+", 'waiting')";
+
+    public void insertOrderToDb(String tableID, String menuItemID) throws SQLException {
+        String sql = "INSERT INTO `orders` (`ID`, `tableID`, `menuItemID`, `status`) VALUES (NULL, " + "'" + tableID + "'" + ", " + "'" + menuItemID + "'" + ", 'waiting')";
         Statement statement = connection.createStatement();
         statement.execute(sql);
     }
@@ -184,10 +178,10 @@ public class DatabaseManager {
         String sql = "SELECT * FROM orders";
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        while(rs.next()){
+        while (rs.next()) {
             orders.add(new Order(rs.getString("status"), rs.getInt("tableid"), rs.getInt("menuitemid")));
         }
         return orders;
     }
-    
+
 }

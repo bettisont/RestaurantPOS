@@ -10,9 +10,27 @@
 <AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="restaurantpossystem.FXMLChefGUIController">
    <children>
       <Text layoutX="217.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Incoming Orders" />
-      <VBox layoutX="37.0" layoutY="48.0" prefHeight="593.0" prefWidth="450.0" />
-      <VBox layoutX="527.0" layoutY="48.0" prefHeight="593.0" prefWidth="450.0" />
-      <Separator layoutX="504.0" layoutY="48.0" orientation="VERTICAL" prefHeight="593.0" prefWidth="7.0" />
+      <VBox layoutX="527.0" layoutY="48.0" prefHeight="593.0" prefWidth="450.0">
+         <children>
+            <TableView fx:id="inprogressOrdersTable" prefHeight="573.0" prefWidth="450.0">
+               <columns>
+                  <TableColumn fx:id="inprogressTableNumColumn" prefWidth="150.0" text="Table" />
+                  <TableColumn fx:id="inprogressMealColumn" prefWidth="150.0" text="Meal" />
+                  <TableColumn fx:id="inprogressPreperationTimeColumn" prefWidth="150.0" text="Remaining Time " />
+               </columns>
+            </TableView>
+         </children></VBox>
+      <Separator layoutX="504.0" layoutY="1.0" orientation="VERTICAL" prefHeight="640.0" prefWidth="4.0" />
       <Text layoutX="703.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inprogress Orders" />
+      <Pane fx:id="incomingOrdersPane" layoutX="30.0" layoutY="49.0" prefHeight="593.0" prefWidth="469.0">
+         <children>
+            <TableView fx:id="incomingOrdersTable" layoutX="10.0" prefHeight="573.0" prefWidth="450.0">
+              <columns>
+                <TableColumn fx:id="incomingTableNumColumn" prefWidth="150.0" text="Table" />
+                <TableColumn fx:id="incomingMealColumn" prefWidth="150.0" text="Meal" />
+                  <TableColumn fx:id="incomingPreperationTimeColumn" prefWidth="150.0" text="Preperation Time" />
+              </columns>
+            </TableView>
+         </children></Pane>
    </children>
 </AnchorPane>

@@ -39,33 +39,33 @@ public class NewMenuItemController implements Initializable {
     ObservableList<String> categoryChoiceBoxList = FXCollections.observableArrayList("Side", "Starter", "Main", "Dessert");
 
     DatabaseManager dbManager;
-    // FXML fields 
+    // FXML fields
     // Indicator Labels
-    @FXML 
+    @FXML
     private Label nameRequiredIndicator;
-    @FXML 
+    @FXML
     private Label descRequiredIndicator;
-    @FXML 
+    @FXML
     private Label priceRequiredIndicator;
-    @FXML 
+    @FXML
     private Label preperationRequiredIndicator;
-    @FXML 
+    @FXML
     private Label categoryRequiredIndicator;
     ///////////////////
     // Fields
     @FXML
     private ComboBox categoryChoiceBox;
-    @FXML 
+    @FXML
     private TextField name;
     @FXML
     private TextField description;
-    @FXML 
+    @FXML
     private TextField price;
-    @FXML 
+    @FXML
     private CheckBox allergen;
-    @FXML 
-    private TextField preperationTime; 
-    
+    @FXML
+    private TextField preperationTime;
+
     /**
      * Initializes the controller class.
      */
@@ -73,71 +73,61 @@ public class NewMenuItemController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         categoryChoiceBox.setItems(categoryChoiceBoxList);
-        
+
         dbManager = new DatabaseManager();
-       
+
     }
 
-    public void handleConfirmButtonAction() throws IOException{
+    public void handleConfirmButtonAction() throws IOException {
 
-        // Verify Data meets the constraints 
+        // Verify Data meets the constraints
         // TextFields
-       Boolean isNameEmpty = isTextFieldEmpty(name, nameRequiredIndicator, "Field Required!");
-       Boolean isDescriptionEmpty = isTextFieldEmpty(description, descRequiredIndicator, "Field Required!");
-       Boolean isPriceEmpty = isTextFieldEmpty(price, priceRequiredIndicator, "Field Required!");
-       Boolean isPreperationTimeEmpty = isTextFieldEmpty(preperationTime, preperationRequiredIndicator, "Field Required!");
-       Boolean isCategoryEmpty = isComboBoxFieldEmpty(categoryChoiceBox, categoryRequiredIndicator, "Field Required!");
-       
-        if(!(isNameEmpty | isDescriptionEmpty | isPriceEmpty | isPreperationTimeEmpty | isCategoryEmpty)){
+        Boolean isNameEmpty = isTextFieldEmpty(name, nameRequiredIndicator, "Field Required!");
+        Boolean isDescriptionEmpty = isTextFieldEmpty(description, descRequiredIndicator, "Field Required!");
+        Boolean isPriceEmpty = isTextFieldEmpty(price, priceRequiredIndicator, "Field Required!");
+        Boolean isPreperationTimeEmpty = isTextFieldEmpty(preperationTime, preperationRequiredIndicator, "Field Required!");
+        Boolean isCategoryEmpty = isComboBoxFieldEmpty(categoryChoiceBox, categoryRequiredIndicator, "Field Required!");
+
+        if (!(isNameEmpty | isDescriptionEmpty | isPriceEmpty | isPreperationTimeEmpty | isCategoryEmpty)) {
 
             MenuItem thisMenuItem = new MenuItem(name.getText(), categoryChoiceBox.getValue().toString(), description.getText(), Float.valueOf(price.getText()), allergen.isSelected(), preperationTime.getText());
-            //System.out.println(thisMenuItem.getCategory());
-            //System.out.println(thisMenuItem.getName());
-            //System.out.println(thisMenuItem.getDescription());
-            //System.out.println(thisMenuItem.getAllergen());
-            //System.out.println(thisMenuItem.getTimeToPrepare());
-            //System.out.println(thisMenuItem.getPrice());
-            
-           try {            
-               dbManager.addMenuItemToDatabase(thisMenuItem);
-           } catch (SQLException ex) {
-               Logger.getLogger(NewMenuItemController.class.getName()).log(Level.SEVERE, null, ex);
-           }
-           Stage stage;
-           stage = (Stage) preperationTime.getScene().getWindow();
-           stage.close();
+
+            try {
+                dbManager.addMenuItemToDatabase(thisMenuItem);
+            } catch (SQLException ex) {
+                Logger.getLogger(NewMenuItemController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Stage stage;
+            stage = (Stage) preperationTime.getScene().getWindow();
+            stage.close();
         }
-        
-        // if none of the fields are empty, then do stuff , else do nothing 
-        
-       
+
+        // if none of the fields are empty, then do stuff , else do nothing
     }
-    
-    private Boolean isInteger(String input){
+
+    private Boolean isInteger(String input) {
         return true;
     }
-    
-    private Boolean isTextFieldEmpty(TextField field, Label label, String labelMessage){
+
+    private Boolean isTextFieldEmpty(TextField field, Label label, String labelMessage) {
         // check if field is empty
         // if it is empty then display the error message and return true
-        if("".equals(field.getText())){
+        if ("".equals(field.getText())) {
             label.setText(labelMessage);
             return true;
-        }
-        else{
+        } else {
             label.setText("");
             return false;
         }
     }
 
-    private Boolean isComboBoxFieldEmpty(ComboBox field, Label label, String labelMessage){
+    private Boolean isComboBoxFieldEmpty(ComboBox field, Label label, String labelMessage) {
         // check if field is empty
         // if it is empty then display the error message and return true
-        if(field.getValue() == null){
+        if (field.getValue() == null) {
             label.setText(labelMessage);
             return true;
-        }
-        else{
+        } else {
             label.setText("");
             return false;
         }

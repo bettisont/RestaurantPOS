@@ -12,8 +12,20 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import utilityClasses.ChefOrderEntry;
 import utilityClasses.DatabaseManager;
 import utilityClasses.MenuItem;
 import utilityClasses.Order;
@@ -25,8 +37,28 @@ import utilityClasses.Table;
  * @author timbettison
  */
 public class FXMLChefGUIController implements Initializable {
-    
+
     private static DatabaseManager dbManager;
+    @FXML
+    Pane incomingOrdersPane;
+
+    @FXML
+    TableView incomingOrdersTable;
+    @FXML
+    TableColumn incomingTableNumColumn;
+    @FXML
+    TableColumn incomingMealColumn;
+    @FXML
+    TableColumn incomingPreperationTimeColumn;
+
+    @FXML
+    TableView inprogressOrdersTable;
+    @FXML
+    TableColumn inprogressTableNumColumn;
+    @FXML
+    TableColumn inprogressMealColumn;
+    @FXML
+    TableColumn inprogressPreperationTimeColumn;
 
     /**
      * Initializes the controller class.
@@ -41,60 +73,66 @@ public class FXMLChefGUIController implements Initializable {
             Logger.getLogger(FXMLChefGUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
 
-    }    
-    
     // this is static so it can be called from other classes when a new order has been placed
-    // for example 
-    public static void updateIncomingOrders() throws SQLException, Exception{
-        
-        // get all the orders from the database 
+    // for example
+    public void updateIncomingOrders() throws SQLException, Exception {
+
+        // get all the orders from the database
         List<Order> allOrders = dbManager.getAllOrders();
         List<String> activeTableNumbers = new ArrayList();
         List<Table> activeTables = new ArrayList();
-        
+
         // for each order
-        for(Order order : allOrders){
-        // IF the order has a status of 'waiting'
-        String orderStatus = order.getStatus();
-        String tableNumber = dbManager.getTableNumber(order.getTableID());
-        Table thisTable = null;
-        // IF this table does not yet exist (not got any orders on it yet)
-        if(!activeTableNumbers.contains(tableNumber)){
-            //create this table 
-            thisTable = new Table(Integer.parseInt(tableNumber));
-            activeTables.add(thisTable);
-            activeTableNumbers.add(tableNumber);
-        }
-        else if(activeTableNumbers.contains(tableNumber)){
-            for(Table table : activeTables){
-                if(table.getTableNumber() == Integer.parseInt(tableNumber)){
-                    thisTable = table;
+        for (Order order : allOrders) {
+            // IF the order has a status of 'waiting'
+            String orderStatus = order.getStatus();
+            String tableNumber = dbManager.getTableNumber(order.getTableID());
+            Table thisTable = null;
+            MenuItem thisMenuItem = dbManager.getMenuItem(order.getMenuItemID());
+            // IF this table does not yet exist (not got any orders on it yet)
+            if (!activeTableNumbers.contains(tableNumber)) {
+                //create this table
+                thisTable = new Table(Integer.parseInt(tableNumber));
+                activeTables.add(thisTable);
+                activeTableNumbers.add(tableNumber);
+            } else if (activeTableNumbers.contains(tableNumber)) {
+                for (Table table : activeTables) {
+                    if (table.getTableNumber() == Integer.parseInt(tableNumber)) {
+                        thisTable = table;
+                    }
                 }
             }
+            if (orderStatus.equals("waiting")) {
+                // append this menuItem to the tables waitingOrder List
+                thisTable.appendOrderWaiting(thisMenuItem);
+            } else if (orderStatus.equals("in progress")) {
+                thisTable.appendOrderInProgress(thisMenuItem);
+            }
         }
-        if(orderStatus.equals("waiting")){
-            // get the table number that this order belongs to
-            // get the menuItem that the order belongs to
-            MenuItem thisMenuItem = dbManager.getMenuItem(order.getMenuItemID());
-            // append this menuItem to the tables waitingOrder List 
-            thisTable.appendOrderWaiting(thisMenuItem);
+        // display them on the gui
+        VBox tableButtonsVBox = new VBox(10);
+        ObservableList<ChefOrderEntry> waitingChefOrderEntries = FXCollections.observableArrayList();
+        ObservableList<ChefOrderEntry> inProgressChefOrderEntries = FXCollections.observableArrayList();
+        for (Table thisTable : activeTables) {
+
+            // for each menuItem that is waiting
+            for (MenuItem item : thisTable.getOrderWaiting()) {
+                ChefOrderEntry thisOrderEntry = new ChefOrderEntry(thisTable.getTableNumber(), item.getName(), item.getTimeToPrepare(), item.getAllergen());
+                waitingChefOrderEntries.add(thisOrderEntry);
+            }
+            for (MenuItem item : thisTable.getOrderInProgress()) {
+                ChefOrderEntry thisOrderEntry = new ChefOrderEntry(thisTable.getTableNumber(), item.getName(), item.getTimeToPrepare(), item.getAllergen());
+                inProgressChefOrderEntries.add(thisOrderEntry);
+            }
+
         }
 
-        
-            
-        // IF the order has a status of 'inProgress'
-            // get the table number that this order belongs to
-            // IF this table does not yet exist (not got any orders on it yet)
-                //create this table 
-            // get the menuItem that the order belongs to
-            // append this menuItem to the tables inProgress List
-       
-        }
-        System.out.println(":P");
-        
-        
-
+        incomingTableNumColumn.setCellValueFactory(new PropertyValueFactory<>("tableNumber"));
+        incomingMealColumn.setCellValueFactory(new PropertyValueFactory<>("mealName"));
+        incomingPreperationTimeColumn.setCellValueFactory(new PropertyValueFactory<>("preperationTime"));
+        incomingOrdersTable.setItems(waitingChefOrderEntries);
     }
-    
+
 }
