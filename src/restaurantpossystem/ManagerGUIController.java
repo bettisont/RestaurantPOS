@@ -111,6 +111,8 @@ public class ManagerGUIController implements Initializable {
     Button tableButton29;
     @FXML
     Button tableButton30;
+    @FXML
+    Button backButton;
 
     @FXML
     private TableView<MenuItem> editMenuTable;
@@ -198,6 +200,16 @@ public class ManagerGUIController implements Initializable {
 
         window.setScene(scene);
 
+    }
+
+    @FXML
+    private void backButtonOnAction(ActionEvent e) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("FXMLLoginScreen.fxml"));
+        Scene scene = new Scene(parent);
+        // this line gets the Stage information
+        Stage loginWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        loginWindow.setScene(scene);
+        loginWindow.show();
     }
 
 }

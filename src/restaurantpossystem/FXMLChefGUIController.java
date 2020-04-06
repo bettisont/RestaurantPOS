@@ -5,6 +5,7 @@
  */
 package restaurantpossystem;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,8 +15,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,6 +31,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 import utilityClasses.ChefOrderEntry;
 import utilityClasses.DatabaseManager;
 import utilityClasses.MenuItem;
@@ -59,6 +66,8 @@ public class FXMLChefGUIController implements Initializable {
     TableColumn inprogressMealColumn;
     @FXML
     TableColumn inprogressPreperationTimeColumn;
+    @FXML
+    Button backButton;
 
     /**
      * Initializes the controller class.
@@ -126,13 +135,28 @@ public class FXMLChefGUIController implements Initializable {
                 ChefOrderEntry thisOrderEntry = new ChefOrderEntry(thisTable.getTableNumber(), item.getName(), item.getTimeToPrepare(), item.getAllergen());
                 inProgressChefOrderEntries.add(thisOrderEntry);
             }
-
         }
 
         incomingTableNumColumn.setCellValueFactory(new PropertyValueFactory<>("tableNumber"));
         incomingMealColumn.setCellValueFactory(new PropertyValueFactory<>("mealName"));
         incomingPreperationTimeColumn.setCellValueFactory(new PropertyValueFactory<>("preperationTime"));
         incomingOrdersTable.setItems(waitingChefOrderEntries);
+
+        inprogressTableNumColumn.setCellValueFactory(new PropertyValueFactory<>("tableNumber"));
+        inprogressMealColumn.setCellValueFactory(new PropertyValueFactory<>("mealName"));
+        inprogressPreperationTimeColumn.setCellValueFactory(new PropertyValueFactory<>("preperationTime"));
+        inprogressOrdersTable.setItems(inProgressChefOrderEntries);
+
+    }
+
+    @FXML
+    private void backButtonOnAction(ActionEvent e) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("FXMLLoginScreen.fxml"));
+        Scene scene = new Scene(parent);
+        // this line gets the Stage information
+        Stage loginWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        loginWindow.setScene(scene);
+        loginWindow.show();
     }
 
 }

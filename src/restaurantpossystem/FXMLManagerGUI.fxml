@@ -14,7 +14,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="tableButton1" layoutX="5.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 1" textFill="#786ed3" />
+                  <Button fx:id="tableButton1" layoutX="5.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="53.0" prefWidth="185.0" text="Table 1" textFill="#786ed3" />
                   <Button fx:id="tableButton2" layoutX="205.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 2" textFill="#786ed3" />
                   <Button fx:id="tableButton3" layoutX="405.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 3" textFill="#786ed3" />
                   <Button fx:id="tableButton4" layoutX="605.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 4" textFill="#786ed3" />
@@ -44,6 +44,7 @@
                   <Button fx:id="tableButton27" layoutX="209.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 27" textFill="#786ed3" />
                   <Button fx:id="tableButton29" layoutX="608.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 29" textFill="#786ed3" />
                   <Button fx:id="tableButton26" layoutX="5.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="85.0" prefWidth="185.0" text="Table 26" textFill="#786ed3" />
+                  <Button fx:id="backButton" layoutX="22.0" layoutY="20.0" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="27.0" prefWidth="151.0" text="Back" textFill="#e84623" />
                </children></AnchorPane>
       </content>
     </Tab>
