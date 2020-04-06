@@ -179,9 +179,15 @@ public class DatabaseManager {
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            orders.add(new Order(rs.getString("status"), rs.getInt("tableid"), rs.getInt("menuitemid")));
+            orders.add(new Order(rs.getString("status"), rs.getInt("tableid"), rs.getInt("menuitemid"), rs.getInt("id")));
         }
         return orders;
+    }
+
+    public void setOrderStatusToInProgress(int OrderId) throws SQLException {
+        String sql = "UPDATE orders SET status = 'in progress' WHERE id = " + OrderId;
+        Statement statement = connection.createStatement();
+        statement.execute(sql);
     }
 
 }

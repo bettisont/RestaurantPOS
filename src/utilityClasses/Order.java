@@ -10,15 +10,17 @@ package utilityClasses;
  * @author timbettison
  */
 public class Order {
-    
+
     private String status;
+    private int id;
     private int tableID;
     private int menuItemID;
-    
-    public Order(String status, int tableID, int menuItemID){
+
+    public Order(String status, int tableID, int menuItemID, int id) {
         this.status = status;
         this.tableID = tableID;
         this.menuItemID = menuItemID;
+        this.id = id;
     }
 
     public String getStatus() {
@@ -44,7 +46,13 @@ public class Order {
     public void setMenuItemID(int menuItemID) {
         this.menuItemID = menuItemID;
     }
-    
-    
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

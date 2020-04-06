@@ -9,7 +9,10 @@
 
 <AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="restaurantpossystem.FXMLChefGUIController">
    <children>
-      <Text layoutX="217.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Incoming Orders" />
+      <Text fill="#786ed3" layoutX="195.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Incoming Orders">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Text>
       <VBox layoutX="527.0" layoutY="48.0" prefHeight="593.0" prefWidth="450.0">
          <children>
             <TableView fx:id="inprogressOrdersTable" prefHeight="573.0" prefWidth="450.0">
@@ -21,17 +24,23 @@
             </TableView>
          </children></VBox>
       <Separator layoutX="504.0" layoutY="1.0" orientation="VERTICAL" prefHeight="640.0" prefWidth="4.0" />
-      <Text layoutX="703.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inprogress Orders" />
       <Pane fx:id="incomingOrdersPane" layoutX="30.0" layoutY="49.0" prefHeight="593.0" prefWidth="469.0">
          <children>
-            <TableView fx:id="incomingOrdersTable" layoutX="10.0" prefHeight="573.0" prefWidth="450.0">
+            <TableView fx:id="incomingOrdersTable" layoutX="10.0" prefHeight="573.0" prefWidth="460.0" tableMenuButtonVisible="true">
               <columns>
-                <TableColumn fx:id="incomingTableNumColumn" prefWidth="150.0" text="Table" />
-                <TableColumn fx:id="incomingMealColumn" prefWidth="150.0" text="Meal" />
-                  <TableColumn fx:id="incomingPreperationTimeColumn" prefWidth="150.0" text="Preperation Time" />
+                  <TableColumn fx:id="incomingIdColumn" prefWidth="26.0" text="ID" />
+                <TableColumn fx:id="incomingTableNumColumn" prefWidth="59.0" resizable="false" text="Table" />
+                <TableColumn fx:id="incomingMealColumn" prefWidth="157.0" resizable="false" text="Meal" />
+                  <TableColumn fx:id="incomingPreperationTimeColumn" minWidth="0.0" prefWidth="91.0" resizable="false" text="Prep Time" />
+                  <TableColumn fx:id="incomingActionColumn" prefWidth="109.0" resizable="false" text="Action" />
               </columns>
             </TableView>
          </children></Pane>
       <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="27.0" prefWidth="124.0" text="Back" textFill="#e84623" />
+      <Text fill="#786ed3" layoutX="676.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="InProgress Orders">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

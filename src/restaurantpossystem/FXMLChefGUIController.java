@@ -57,6 +57,10 @@ public class FXMLChefGUIController implements Initializable {
     TableColumn incomingMealColumn;
     @FXML
     TableColumn incomingPreperationTimeColumn;
+    @FXML
+    TableColumn incomingActionColumn;
+    @FXML
+    TableColumn incomingIdColumn;
 
     @FXML
     TableView inprogressOrdersTable;
@@ -68,6 +72,7 @@ public class FXMLChefGUIController implements Initializable {
     TableColumn inprogressPreperationTimeColumn;
     @FXML
     Button backButton;
+    private int id;
 
     /**
      * Initializes the controller class.
@@ -87,64 +92,39 @@ public class FXMLChefGUIController implements Initializable {
     // this is static so it can be called from other classes when a new order has been placed
     // for example
     public void updateIncomingOrders() throws SQLException, Exception {
-
-        // get all the orders from the database
         List<Order> allOrders = dbManager.getAllOrders();
-        List<String> activeTableNumbers = new ArrayList();
-        List<Table> activeTables = new ArrayList();
 
-        // for each order
-        for (Order order : allOrders) {
-            // IF the order has a status of 'waiting'
-            String orderStatus = order.getStatus();
-            String tableNumber = dbManager.getTableNumber(order.getTableID());
-            Table thisTable = null;
-            MenuItem thisMenuItem = dbManager.getMenuItem(order.getMenuItemID());
-            // IF this table does not yet exist (not got any orders on it yet)
-            if (!activeTableNumbers.contains(tableNumber)) {
-                //create this table
-                thisTable = new Table(Integer.parseInt(tableNumber));
-                activeTables.add(thisTable);
-                activeTableNumbers.add(tableNumber);
-            } else if (activeTableNumbers.contains(tableNumber)) {
-                for (Table table : activeTables) {
-                    if (table.getTableNumber() == Integer.parseInt(tableNumber)) {
-                        thisTable = table;
-                    }
-                }
-            }
-            if (orderStatus.equals("waiting")) {
-                // append this menuItem to the tables waitingOrder List
-                thisTable.appendOrderWaiting(thisMenuItem);
-            } else if (orderStatus.equals("in progress")) {
-                thisTable.appendOrderInProgress(thisMenuItem);
-            }
-        }
-        // display them on the gui
-        VBox tableButtonsVBox = new VBox(10);
         ObservableList<ChefOrderEntry> waitingChefOrderEntries = FXCollections.observableArrayList();
         ObservableList<ChefOrderEntry> inProgressChefOrderEntries = FXCollections.observableArrayList();
-        for (Table thisTable : activeTables) {
 
-            // for each menuItem that is waiting
-            for (MenuItem item : thisTable.getOrderWaiting()) {
-                ChefOrderEntry thisOrderEntry = new ChefOrderEntry(thisTable.getTableNumber(), item.getName(), item.getTimeToPrepare(), item.getAllergen());
-                waitingChefOrderEntries.add(thisOrderEntry);
-            }
-            for (MenuItem item : thisTable.getOrderInProgress()) {
-                ChefOrderEntry thisOrderEntry = new ChefOrderEntry(thisTable.getTableNumber(), item.getName(), item.getTimeToPrepare(), item.getAllergen());
-                inProgressChefOrderEntries.add(thisOrderEntry);
+        for (Order order : allOrders) {
+            String orderStatus = order.getStatus();
+            String tableNumber = dbManager.getTableNumber(order.getTableID());
+            MenuItem thisMenuItem = dbManager.getMenuItem(order.getMenuItemID());
+            String mealName = thisMenuItem.getName();
+            Boolean allergen = thisMenuItem.getAllergen();
+            int orderId = order.getId();
+            String prepTime = thisMenuItem.getTimeToPrepare();
+            if (orderStatus.equals("waiting")) {
+                waitingChefOrderEntries.add(new ChefOrderEntry(orderId, Integer.valueOf(tableNumber), mealName, prepTime, allergen, this));
+            } else if (orderStatus.equals("in progress")) {
+                inProgressChefOrderEntries.add(new ChefOrderEntry(orderId, Integer.valueOf(tableNumber), mealName, prepTime, allergen, this));
             }
         }
 
         incomingTableNumColumn.setCellValueFactory(new PropertyValueFactory<>("tableNumber"));
         incomingMealColumn.setCellValueFactory(new PropertyValueFactory<>("mealName"));
         incomingPreperationTimeColumn.setCellValueFactory(new PropertyValueFactory<>("preperationTime"));
+        incomingActionColumn.setCellValueFactory(new PropertyValueFactory<>("startButton"));
+
+        incomingActionColumn.setStyle("-fx-alignment: CENTER;");
+        incomingIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         incomingOrdersTable.setItems(waitingChefOrderEntries);
 
         inprogressTableNumColumn.setCellValueFactory(new PropertyValueFactory<>("tableNumber"));
         inprogressMealColumn.setCellValueFactory(new PropertyValueFactory<>("mealName"));
         inprogressPreperationTimeColumn.setCellValueFactory(new PropertyValueFactory<>("preperationTime"));
+
         inprogressOrdersTable.setItems(inProgressChefOrderEntries);
 
     }

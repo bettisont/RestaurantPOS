@@ -5,6 +5,14 @@
  */
 package utilityClasses;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import restaurantpossystem.FXMLChefGUIController;
+
 /**
  *
  * @author timbettison
@@ -15,13 +23,28 @@ public class ChefOrderEntry {
     private String mealName;
     private String preperationTime;
     private Boolean isAllergen;
+    private Button startButton;
+    private int id;
+    private FXMLChefGUIController controller;
 
-    public ChefOrderEntry(int tableNumber, String mealName, String preperationTime, Boolean isAllergen) {
+    public ChefOrderEntry(int id, int tableNumber, String mealName, String preperationTime, Boolean isAllergen, FXMLChefGUIController controller) {
 
         this.tableNumber = tableNumber;
         this.mealName = mealName;
         this.preperationTime = preperationTime;
         this.isAllergen = isAllergen;
+        this.controller = controller;
+        Button thisButton = new Button("Start");
+        thisButton.setStyle("-fx-text-fill: rgb(39,174,96);");
+        thisButton.setOnAction(e -> {
+            try {
+                startButtonOnAction();
+            } catch (Exception ex) {
+                Logger.getLogger(ChefOrderEntry.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        this.startButton = thisButton;
+        this.id = id;
 
     }
 
@@ -55,6 +78,30 @@ public class ChefOrderEntry {
 
     public void setIsAllergen(Boolean isAllergen) {
         this.isAllergen = isAllergen;
+    }
+
+    public Button getStartButton() {
+        return startButton;
+    }
+
+    public void setStartButton(Button startButton) {
+        this.startButton = startButton;
+    }
+
+    private void startButtonOnAction() throws SQLException, Exception {
+        DatabaseManager dbManager = new DatabaseManager();
+        // update the status of the row in the order schema to 'inprogress'
+        dbManager.setOrderStatusToInProgress(this.id);
+        // start a timer countdown somehow
+        controller.updateIncomingOrders();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
