@@ -103,7 +103,7 @@ public class FXMLChefGUIController implements Initializable {
             String tableNumber = dbManager.getTableNumber(order.getTableID());
             MenuItem thisMenuItem = dbManager.getMenuItem(order.getMenuItemID());
             String mealName = thisMenuItem.getName();
-            Boolean allergen = thisMenuItem.getAllergen();
+            int allergen = thisMenuItem.getAllergen();
             int orderId = order.getId();
             String prepTime = thisMenuItem.getTimeToPrepare();
             if (orderStatus.equals("waiting")) {

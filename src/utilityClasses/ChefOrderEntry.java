@@ -22,13 +22,13 @@ public class ChefOrderEntry {
     private int tableNumber;
     private String mealName;
     private String preperationTime;
-    private Boolean isAllergen;
+    private int isAllergen;
     private Button startButton;
     private Button finishedButton;
     private int id;
     private FXMLChefGUIController chefController;
 
-    public ChefOrderEntry(int id, int tableNumber, String mealName, String preperationTime, Boolean isAllergen, FXMLChefGUIController controller) {
+    public ChefOrderEntry(int id, int tableNumber, String mealName, String preperationTime, int isAllergen, FXMLChefGUIController controller) {
 
         this.tableNumber = tableNumber;
         this.mealName = mealName;
@@ -91,11 +91,11 @@ public class ChefOrderEntry {
         this.preperationTime = preperationTime;
     }
 
-    public Boolean getIsAllergen() {
+    public int getIsAllergen() {
         return isAllergen;
     }
 
-    public void setIsAllergen(Boolean isAllergen) {
+    public void setIsAllergen(int isAllergen) {
         this.isAllergen = isAllergen;
     }
 
