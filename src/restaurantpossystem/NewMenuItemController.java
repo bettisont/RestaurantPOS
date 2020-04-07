@@ -90,7 +90,11 @@ public class NewMenuItemController implements Initializable {
 
         if (!(isNameEmpty | isDescriptionEmpty | isPriceEmpty | isPreperationTimeEmpty | isCategoryEmpty)) {
 
-            MenuItem thisMenuItem = new MenuItem(name.getText(), categoryChoiceBox.getValue().toString(), description.getText(), Float.valueOf(price.getText()), allergen.isSelected(), preperationTime.getText());
+            int allergenInt = 0;
+            if (allergen.isSelected()) {
+                allergenInt = 1;
+            }
+            MenuItem thisMenuItem = new MenuItem(name.getText(), categoryChoiceBox.getValue().toString(), description.getText(), Float.valueOf(price.getText()), allergenInt, preperationTime.getText());
 
             try {
                 dbManager.addMenuItemToDatabase(thisMenuItem);

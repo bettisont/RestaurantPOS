@@ -71,6 +71,7 @@ public class FXMLChefGUIController implements Initializable {
     @FXML
     TableColumn inprogressPreperationTimeColumn;
     @FXML
+    TableColumn inProgressActionColumn;
     Button backButton;
     private int id;
 
@@ -116,7 +117,6 @@ public class FXMLChefGUIController implements Initializable {
         incomingMealColumn.setCellValueFactory(new PropertyValueFactory<>("mealName"));
         incomingPreperationTimeColumn.setCellValueFactory(new PropertyValueFactory<>("preperationTime"));
         incomingActionColumn.setCellValueFactory(new PropertyValueFactory<>("startButton"));
-
         incomingActionColumn.setStyle("-fx-alignment: CENTER;");
         incomingIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         incomingOrdersTable.setItems(waitingChefOrderEntries);
@@ -124,7 +124,8 @@ public class FXMLChefGUIController implements Initializable {
         inprogressTableNumColumn.setCellValueFactory(new PropertyValueFactory<>("tableNumber"));
         inprogressMealColumn.setCellValueFactory(new PropertyValueFactory<>("mealName"));
         inprogressPreperationTimeColumn.setCellValueFactory(new PropertyValueFactory<>("preperationTime"));
-
+        inProgressActionColumn.setCellValueFactory(new PropertyValueFactory<>("finishedButton"));
+        inProgressActionColumn.setStyle("-fx-alignment: CENTER;");
         inprogressOrdersTable.setItems(inProgressChefOrderEntries);
 
     }

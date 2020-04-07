@@ -23,60 +23,59 @@ import javafx.stage.Stage;
  * @author timbettison
  */
 public class LoginScreenController implements Initializable {
-    
+
     @FXML
     private Label label;
-    
+
     @FXML
     private void handleChefButtonAction(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("FXMLChefGUI.fxml"));
         Scene scene = new Scene(parent);
-        
-        // this line gets the Stage information 
-        Stage chefWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
-        
+
+        // this line gets the Stage information
+        Stage chefWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
         chefWindow.setScene(scene);
         chefWindow.show();
         Stage loginStage;
         loginStage = (Stage) label.getScene().getWindow();
         loginStage.close();
     }
-    
+
     @FXML
     private void handleFoHButtonAction(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("FXMLFoHGUI.fxml"));
         Scene scene = new Scene(parent);
-        
-        // this line gets the Stage information 
-        Stage chefWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
-        
+
+        // this line gets the Stage information
+        Stage chefWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
         chefWindow.setScene(scene);
         chefWindow.show();
         Stage loginStage;
         loginStage = (Stage) label.getScene().getWindow();
         loginStage.close();
     }
-    
+
     @FXML
     private void handleManagerButtonAction(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("FXMLManagerGUI.fxml"));
         Scene scene = new Scene(parent);
-        
-        // this line gets the Stage information 
-        Stage chefWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
-        
+
+        // this line gets the Stage information
+        Stage chefWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
         chefWindow.setScene(scene);
         chefWindow.show();
-        
-        
+
         Stage loginStage;
         loginStage = (Stage) label.getScene().getWindow();
         loginStage.close();
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }

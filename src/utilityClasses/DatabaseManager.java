@@ -58,9 +58,9 @@ public class DatabaseManager {
         String name = menuItem.getName();
         String description = menuItem.getDescription();
         float price = menuItem.getPrice();
-        Boolean allergen = menuItem.getAllergen();
+        int allergen = menuItem.getAllergen();
         int allergenForDb = 1;
-        if (!(allergen)) {
+        if (!(allergen == 1)) {
             allergenForDb = 0;
         }
         String prepTime = menuItem.getTimeToPrepare();
@@ -94,12 +94,12 @@ public class DatabaseManager {
     private ObservableList<MenuItem> convertStringsToMenuItems(ObservableList<String> menuItems) {
         ObservableList<MenuItem> menuItemObjects = FXCollections.observableArrayList();
         menuItems.stream().map((menuItem) -> menuItem.split(",")).map((split) -> {
-            String name = split[1];
-            String category = split[0];
-            String description = split[2];
-            float price = Float.parseFloat(split[3]);
-            Boolean allergen = "1".equals(split[4]);
-            String timeToPrepare = split[5];
+            String name = split[1].trim();
+            String category = split[0].trim();
+            String description = split[2].trim();
+            float price = Float.parseFloat(split[3].trim());
+            int allergen = Integer.parseInt(split[4].trim());
+            String timeToPrepare = split[5].trim();
             MenuItem thisMenuItem = new MenuItem(name, category, description, price, allergen, timeToPrepare);
             return thisMenuItem;
         }).forEachOrdered((thisMenuItem) -> {
@@ -186,6 +186,12 @@ public class DatabaseManager {
 
     public void setOrderStatusToInProgress(int OrderId) throws SQLException {
         String sql = "UPDATE orders SET status = 'in progress' WHERE id = " + OrderId;
+        Statement statement = connection.createStatement();
+        statement.execute(sql);
+    }
+
+    public void setOrderStatusToComplete(int OrderId) throws SQLException {
+        String sql = "UPDATE orders SET status = 'complete' WHERE id = " + OrderId;
         Statement statement = connection.createStatement();
         statement.execute(sql);
     }

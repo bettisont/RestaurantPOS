@@ -24,8 +24,9 @@ public class ChefOrderEntry {
     private String preperationTime;
     private Boolean isAllergen;
     private Button startButton;
+    private Button finishedButton;
     private int id;
-    private FXMLChefGUIController controller;
+    private FXMLChefGUIController chefController;
 
     public ChefOrderEntry(int id, int tableNumber, String mealName, String preperationTime, Boolean isAllergen, FXMLChefGUIController controller) {
 
@@ -33,23 +34,41 @@ public class ChefOrderEntry {
         this.mealName = mealName;
         this.preperationTime = preperationTime;
         this.isAllergen = isAllergen;
-        this.controller = controller;
-        Button thisButton = new Button("Start");
-        thisButton.setStyle("-fx-text-fill: rgb(39,174,96);");
-        thisButton.setOnAction(e -> {
+        this.chefController = controller;
+        Button startButton = new Button("Start");
+        Button finishButton = new Button("Complete");
+        finishButton.setStyle("-fx-text-fill: rgb(39,174,96);");
+        startButton.setStyle("-fx-text-fill: rgb(39,174,96);");
+        finishButton.setOnAction(e -> {
+            try {
+                finishButtonOnAction(e);
+            } catch (Exception ex) {
+                Logger.getLogger(ChefOrderEntry.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        startButton.setOnAction(e -> {
             try {
                 startButtonOnAction();
             } catch (Exception ex) {
                 Logger.getLogger(ChefOrderEntry.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        this.startButton = thisButton;
+        this.startButton = startButton;
+        this.finishedButton = finishButton;
         this.id = id;
 
     }
 
     public int getTableNumber() {
         return tableNumber;
+    }
+
+    public Button getFinishedButton() {
+        return finishedButton;
+    }
+
+    public void setFinishedButton(Button finishedButton) {
+        this.finishedButton = finishedButton;
     }
 
     public void setTableNumber(int tableNumber) {
@@ -93,7 +112,7 @@ public class ChefOrderEntry {
         // update the status of the row in the order schema to 'inprogress'
         dbManager.setOrderStatusToInProgress(this.id);
         // start a timer countdown somehow
-        controller.updateIncomingOrders();
+        chefController.updateIncomingOrders();
     }
 
     public int getId() {
@@ -102,6 +121,14 @@ public class ChefOrderEntry {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    private void finishButtonOnAction(ActionEvent e) throws SQLException, Exception {
+        DatabaseManager dbManager = new DatabaseManager();
+        // update the status of the row in the order schema to 'inprogress'
+        dbManager.setOrderStatusToComplete(this.id);
+        // start a timer countdown somehow
+        chefController.updateIncomingOrders();
     }
 
 }

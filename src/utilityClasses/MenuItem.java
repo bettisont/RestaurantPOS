@@ -12,13 +12,12 @@ import javafx.beans.property.SimpleStringProperty;
  * @author timbettison
  */
 public class MenuItem {
-    
+
     private SimpleStringProperty category, name, description, timeToPrepare;
     private float price;
-    private Boolean allergen;
-    
+    private int allergen;
 
-    public MenuItem(String name, String category, String description, float price, Boolean allergen, String timeToPrepare){
+    public MenuItem(String name, String category, String description, float price, int allergen, String timeToPrepare) {
         this.name = new SimpleStringProperty(name);
         this.category = new SimpleStringProperty(category);
         this.description = new SimpleStringProperty(description);
@@ -67,16 +66,12 @@ public class MenuItem {
         this.timeToPrepare = timeToPrepare;
     }
 
-    public Boolean getAllergen() {
+    public int getAllergen() {
         return allergen;
     }
 
-    public void setAllergen(Boolean allergen) {
+    public void setAllergen(int allergen) {
         this.allergen = allergen;
     }
 
-
-
-    
-    
 }
