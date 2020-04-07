@@ -11,6 +11,8 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import restaurantpossystem.FXMLChefGUIController;
 
 /**
@@ -19,9 +21,9 @@ import restaurantpossystem.FXMLChefGUIController;
  */
 public class ChefOrderEntry {
 
-    private int tableNumber;
-    private String mealName;
-    private String preperationTime;
+    private Text tableNumber;
+    private Text mealName;
+    private Text preperationTime;
     private int isAllergen;
     private Button startButton;
     private Button finishedButton;
@@ -30,16 +32,42 @@ public class ChefOrderEntry {
 
     public ChefOrderEntry(int id, int tableNumber, String mealName, String preperationTime, int isAllergen, FXMLChefGUIController controller) {
 
-        this.tableNumber = tableNumber;
-        this.mealName = mealName;
-        this.preperationTime = preperationTime;
-        this.isAllergen = isAllergen;
         this.chefController = controller;
-        Button startButton = new Button("Start");
-        Button finishButton = new Button("Complete");
-        finishButton.setStyle("-fx-text-fill: rgb(39,174,96);");
-        startButton.setStyle("-fx-text-fill: rgb(39,174,96);");
-        finishButton.setOnAction(e -> {
+        Text tableNumberText = new Text();
+        Text mealNameText = new Text();
+        Text preperationTimeText = new Text();
+        Button startBtnButton = new Button();
+        Button finishedBtnButton = new Button();
+
+        if (isAllergen == 1) {
+
+            tableNumberText.setText(String.valueOf(tableNumber));
+            tableNumberText.setFill(Color.RED);
+            mealNameText.setText(mealName);
+            mealNameText.setFill(Color.RED);
+            preperationTimeText.setText(preperationTime);
+            preperationTimeText.setFill(Color.RED);
+            finishedBtnButton.setStyle("-fx-text-fill: rgb(39,174,96);");
+            startBtnButton.setStyle("-fx-text-fill: rgb(255,0,0);");
+
+        } else {
+            tableNumberText.setText(String.valueOf(tableNumber));
+            mealNameText.setText(mealName);
+            preperationTimeText.setText(preperationTime);
+            finishedBtnButton.setStyle("-fx-text-fill: rgb(39,174,96);");
+        }
+
+        finishedBtnButton.setText("Complete");
+        startBtnButton.setText("Start");
+        this.tableNumber = tableNumberText;
+        this.mealName = mealNameText;
+        this.preperationTime = preperationTimeText;
+        this.finishedButton = finishedBtnButton;
+        this.startButton = startBtnButton;
+        this.isAllergen = isAllergen;
+        this.id = id;
+
+        finishedButton.setOnAction(e -> {
             try {
                 finishButtonOnAction(e);
             } catch (Exception ex) {
@@ -53,14 +81,19 @@ public class ChefOrderEntry {
                 Logger.getLogger(ChefOrderEntry.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        this.startButton = startButton;
-        this.finishedButton = finishButton;
-        this.id = id;
 
     }
 
-    public int getTableNumber() {
+    public void InstansiateAllergenObjects() {
+
+    }
+
+    public Text getTableNumber() {
         return tableNumber;
+    }
+
+    public void setTableNumber(Text tableNumber) {
+        this.tableNumber = tableNumber;
     }
 
     public Button getFinishedButton() {
@@ -71,24 +104,28 @@ public class ChefOrderEntry {
         this.finishedButton = finishedButton;
     }
 
-    public void setTableNumber(int tableNumber) {
-        this.tableNumber = tableNumber;
-    }
-
-    public String getMealName() {
+    public Text getMealName() {
         return mealName;
     }
 
-    public void setMealName(String mealName) {
+    public void setMealName(Text mealName) {
         this.mealName = mealName;
     }
 
-    public String getPreperationTime() {
+    public Text getPreperationTime() {
         return preperationTime;
     }
 
-    public void setPreperationTime(String preperationTime) {
+    public void setPreperationTime(Text preperationTime) {
         this.preperationTime = preperationTime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getIsAllergen() {
@@ -113,14 +150,6 @@ public class ChefOrderEntry {
         dbManager.setOrderStatusToInProgress(this.id);
         // start a timer countdown somehow
         chefController.updateIncomingOrders();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     private void finishButtonOnAction(ActionEvent e) throws SQLException, Exception {
