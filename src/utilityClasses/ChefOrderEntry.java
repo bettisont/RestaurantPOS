@@ -40,7 +40,6 @@ public class ChefOrderEntry {
         Button finishedBtnButton = new Button();
 
         if (isAllergen == 1) {
-
             tableNumberText.setText(String.valueOf(tableNumber));
             tableNumberText.setFill(Color.RED);
             mealNameText.setText(mealName);
@@ -49,7 +48,6 @@ public class ChefOrderEntry {
             preperationTimeText.setFill(Color.RED);
             finishedBtnButton.setStyle("-fx-text-fill: rgb(39,174,96);");
             startBtnButton.setStyle("-fx-text-fill: rgb(255,0,0);");
-
         } else {
             tableNumberText.setText(String.valueOf(tableNumber));
             mealNameText.setText(mealName);

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="restaurantpossystem.OrderProgressController">
+   <children>
+      <Label fx:id="tableLabel" layoutX="234.0" layoutY="29.0" textFill="#786ed3">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <TableView layoutX="100.0" layoutY="100.0" prefHeight="200.0" prefWidth="500.0">
+        <columns>
+          <TableColumn minWidth="166.0" prefWidth="75.0" text="Item" />
+          <TableColumn minWidth="166.0" prefWidth="75.0" text="Status" />
+            <TableColumn minWidth="166.0" prefWidth="75.0" text="Estimated Time Remaining" />
+        </columns>
+      </TableView>
+   </children>
+</Pane>

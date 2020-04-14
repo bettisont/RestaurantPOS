@@ -18,16 +18,18 @@
       <Button layoutX="15.0" layoutY="594.0" mnemonicParsing="false" onAction="#handleSendToKitchenButton" prefHeight="42.0" prefWidth="231.0" text="Send To Kitchen" textFill="#27ae60" />
       <Pane fx:id="menuButtonsPane" layoutX="266.0" layoutY="60.0" prefHeight="531.0" prefWidth="719.0">
          <children>
-            <Button layoutX="100.0" layoutY="127.0" mnemonicParsing="false" onAction="#displayMenuItems" prefHeight="100.0" prefWidth="200.0" text="Starter" textFill="#786ed3" />
-            <Button layoutX="100.0" layoutY="303.0" mnemonicParsing="false" onAction="#displayMenuItems" prefHeight="100.0" prefWidth="200.0" text="Main" textFill="#786ed3" />
-            <Button layoutX="414.0" layoutY="127.0" mnemonicParsing="false" onAction="#displayMenuItems" prefHeight="100.0" prefWidth="200.0" text="Side" textFill="#786ed3" />
-            <Button layoutX="414.0" layoutY="303.0" mnemonicParsing="false" onAction="#displayMenuItems" prefHeight="100.0" prefWidth="200.0" text="Dessert" textFill="#786ed3" />
+            <Button fx:id="startersButton" layoutX="100.0" layoutY="127.0" mnemonicParsing="false" onAction="#displayMenuItems" prefHeight="100.0" prefWidth="200.0" text="Starter" textFill="#786ed3" />
+            <Button fx:id="mainsButton" layoutX="100.0" layoutY="303.0" mnemonicParsing="false" onAction="#displayMenuItems" prefHeight="100.0" prefWidth="200.0" text="Main" textFill="#786ed3" />
+            <Button fx:id="sidesButton" layoutX="414.0" layoutY="127.0" mnemonicParsing="false" onAction="#displayMenuItems" prefHeight="100.0" prefWidth="200.0" text="Side" textFill="#786ed3" />
+            <Button fx:id="dessertsButton" layoutX="414.0" layoutY="303.0" mnemonicParsing="false" onAction="#displayMenuItems" prefHeight="100.0" prefWidth="200.0" text="Dessert" textFill="#786ed3" />
             <Separator layoutY="516.0" prefHeight="3.0" prefWidth="719.0" />
             <Separator layoutY="-1.0" prefHeight="3.0" prefWidth="719.0" />
+            <Button fx:id="returnButton" layoutX="332.0" layoutY="449.0" mnemonicParsing="false" onAction="#displayMenuCategories" text="Return" textFill="#786ed3" />
          </children>
       </Pane>
       <Button fx:id="backButton" layoutX="69.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="27.0" prefWidth="124.0" text="Back" textFill="#e84623" />
       <Button layoutX="755.0" layoutY="594.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="231.0" text="View Bill" textFill="#2a292f" />
       <Text fx:id="currentOrderPriceText" layoutX="21.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="220.0" />
+      <Button layoutX="385.0" layoutY="594.0" mnemonicParsing="false" onAction="#handleOrderProgress" prefHeight="42.0" prefWidth="231.0" text="Order Progress" textFill="#2a292f" />
    </children>
 </AnchorPane>

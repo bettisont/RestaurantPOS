@@ -184,6 +184,18 @@ public class DatabaseManager {
         return orders;
     }
 
+    public List<Order> getOrdersForSpecificTable(Table table) throws Exception {
+        List<Order> orders = new ArrayList();
+        String thisTableId = getTableID(String.valueOf(table.getTableNumber()));
+        String sql = "SELECT * FROM orders WHERE tableID =" + thisTableId;
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            orders.add(new Order(rs.getString("status"), rs.getInt("tableid"), rs.getInt("menuitemid"), rs.getInt("id")));
+        }
+        return orders;
+    }
+
     public void setOrderStatusToInProgress(int OrderId) throws SQLException {
         String sql = "UPDATE orders SET status = 'in progress' WHERE id = " + OrderId;
         Statement statement = connection.createStatement();

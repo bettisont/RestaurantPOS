@@ -32,9 +32,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import utilityClasses.Order;
 
 /**
  * FXML Controller class
@@ -43,20 +45,35 @@ import javax.swing.GroupLayout.Alignment;
  */
 public class FXMLTableViewController implements Initializable {
 
-    @FXML private Label tableLabel; 
-    @FXML private Button backButton;
-    @FXML private Pane menuButtonsPane;
-    @FXML private TextArea currentOrderTextArea;
-    @FXML private Text currentOrderPriceText;
-    
+    @FXML
+    private Label tableLabel;
+    @FXML
+    private Button backButton;
+    @FXML
+    private Pane menuButtonsPane;
+    @FXML
+    private TextArea currentOrderTextArea;
+    @FXML
+    private Text currentOrderPriceText;
+    @FXML
+    private Button startersButton;
+    @FXML
+    private Button mainsButton;
+    @FXML
+    private Button sidesButton;
+    @FXML
+    private Button dessertsButton;
+    @FXML
+    private Button returnButton;
+
     DatabaseManager dbManager;
-    private Dictionary menuItemButtonMappings; 
-    
+    private Dictionary menuItemButtonMappings;
+
     private List currentOrder;
-    private float currentOrderPrice; 
+    private float currentOrderPrice;
     private Table table;
-    
-    
+    private List<Button> menuItemCategories;
+
     /**
      * Initializes the controller class.
      */
@@ -66,87 +83,115 @@ public class FXMLTableViewController implements Initializable {
         dbManager = new DatabaseManager();
         menuItemButtonMappings = new Hashtable();
         currentOrder = new ArrayList();
-    }    
-    
-    
-        /*
-    this method takes in a table string to show informartion about the corresponding data 
-    */
-    public void initTableData(Table table){
+        menuItemCategories = new ArrayList<Button>();
+        menuItemCategories.add(startersButton);
+        menuItemCategories.add(mainsButton);
+        menuItemCategories.add(sidesButton);
+        menuItemCategories.add(dessertsButton);
+    }
+
+    /*
+    this method takes in a table string to show informartion about the corresponding data
+     */
+    public void initTableData(Table table) {
         tableLabel.setText("Table " + table.getTableNumber());
         tableLabel.setAlignment(Pos.CENTER);
         this.table = table;
     }
-    
+
     @FXML
-    private void backButtonOnAction(ActionEvent event) throws IOException{
-        // save state of the screen first? 
-        
+    private void backButtonOnAction(ActionEvent event) throws IOException {
+        // save state of the screen first?
+
         Parent parent = FXMLLoader.load(getClass().getResource("FXMLManagerGUI.fxml"));
         Scene scene = new Scene(parent);
-        
-        // this line gets the Stage information 
-        Stage managerWindow = (Stage)((Node)event.getSource()).getScene().getWindow();
-        
+
+        // this line gets the Stage information
+        Stage managerWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
         managerWindow.setScene(scene);
         managerWindow.show();
-        
+
     }
-    
-    @FXML 
-    private void displayMenuItems(ActionEvent event) throws SQLException{
+
+    @FXML
+    private void displayMenuItems(ActionEvent event) throws SQLException {
+        //returnButton.setVisible(true);
         Button categoryBtn = (Button) event.getSource();
         String categoryToGet = categoryBtn.getText();
-        // create list that will hold buttons for starters 
+        // create list that will hold buttons for starters
         List<Button> menuItemButtons = new ArrayList<Button>();
-        // execute a query to retrieve the rows from the table which are starters 
+        // execute a query to retrieve the rows from the table which are starters
         ObservableList<MenuItem> starters = dbManager.getSpecifiedFoodCategory(categoryToGet);
-        // grab string value from each row that I want to make the button text value 
-        for(MenuItem item : starters){
+        // grab string value from each row that I want to make the button text value
+        for (MenuItem item : starters) {
             Button thisButton = new Button();
-            thisButton.setText(item.getName()+"\n"+"£"+item.getPrice());
+            thisButton.setText(item.getName() + "\n" + "£" + item.getPrice());
             thisButton.setTextAlignment(TextAlignment.CENTER);
             thisButton.setOnAction(this::handleMenuItemButtonClick);
             menuItemButtons.add(thisButton);
             menuItemButtonMappings.put(thisButton, item);
         }
-        // clear the container of previous buttons 
+        // clear the container of previous buttons
         menuButtonsPane.getChildren().clear();
         HBox menuItemBtnHbox = new HBox(10);
         menuItemBtnHbox.getChildren().addAll(menuItemButtons);
-        // add new buttons to the container 
+        // add new buttons to the container
         menuButtonsPane.getChildren().addAll(menuItemBtnHbox);
+        menuButtonsPane.getChildren().add(returnButton);
     }
-    
-    // when a menu item button is clicked, the corresponding menu item object should be added to a list 
-    // so that it can be added to the current order 
-    private void handleMenuItemButtonClick(ActionEvent event){
+
+    @FXML
+    private void displayMenuCategories(ActionEvent event) {
+        // clear the container of previous buttons
+        menuButtonsPane.getChildren().clear();
+        // add new buttons to the container
+        menuButtonsPane.getChildren().addAll(menuItemCategories);
+        menuButtonsPane.getChildren().add(returnButton);
+    }
+
+    // when a menu item button is clicked, the corresponding menu item object should be added to a list
+    // so that it can be added to the current order
+    private void handleMenuItemButtonClick(ActionEvent event) {
         Button menuItemBtn = (Button) event.getSource();
         System.out.println(menuItemBtn.getText());
         MenuItem thisMenuItem = (MenuItem) menuItemButtonMappings.get(menuItemBtn);
         currentOrder.add(thisMenuItem);
-        currentOrderTextArea.appendText("- "+thisMenuItem.getName()+"\n");
+        currentOrderTextArea.appendText("- " + thisMenuItem.getName() + "\n");
         currentOrderPrice += thisMenuItem.getPrice();
-        currentOrderPriceText.setText("Total Price: £"+Float.toString(currentOrderPrice));
+        currentOrderPriceText.setText("Total Price: £" + Float.toString(currentOrderPrice));
     }
-    
+
     @FXML
-    private void handleSendToKitchenButton(ActionEvent event) throws SQLException, Exception{
+    private void handleSendToKitchenButton(ActionEvent event) throws SQLException, Exception {
         System.out.println("Sending order to Kitchen!");
-        // add the table in the tables schema 
+        // add the table in the tables schema
         String tableNumber = tableLabel.getText().split(" ")[1];
         dbManager.insertTableToDb(tableNumber);
 
-        // for each item in the current order list 
-        for(Object item : currentOrder){
+        // for each item in the current order list
+        for (Object item : currentOrder) {
             MenuItem thisItem = (MenuItem) item;
             // create an entry in the order table
-            // the entry must have a table ID of the current table 
-            // the entry must have a menuItemID of the menuItem 
+            // the entry must have a table ID of the current table
+            // the entry must have a menuItemID of the menuItem
             String tableID = dbManager.getTableID(tableNumber);
             String menuItemID = dbManager.getMenuItemID(thisItem);
             dbManager.insertOrderToDb(tableID, menuItemID);
         }
     }
-    
+
+    @FXML
+    private void handleOrderProgress(ActionEvent event) throws SQLException, Exception {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("orderProgress.fxml"));
+        Stage stage = new Stage();
+        Parent root = loader.load();
+        OrderProgressController controller = loader.getController();
+        controller.initOrderData(this.table);
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(backButton.getScene().getWindow());
+        stage.showAndWait();
+    }
 }
