@@ -176,7 +176,7 @@ public class ManagerGUIController implements Initializable {
     }
 
     @FXML
-    public void handleTableButtonAction(ActionEvent event) throws IOException, SQLException {
+    public void handleTableButtonAction(ActionEvent event) throws IOException, SQLException, Exception {
 
         Button tableBtn = (Button) event.getSource();
         int tableNum = Integer.parseInt(tableBtn.getText().split(" ")[1]);

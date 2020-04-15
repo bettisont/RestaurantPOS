@@ -46,6 +46,11 @@ import utilityClasses.Order;
 public class FXMLTableViewController implements Initializable {
 
     @FXML
+    private Button orderProgressButton;
+    @FXML
+    private Button viewBillButton;
+
+    @FXML
     private Label tableLabel;
     @FXML
     private Button backButton;
@@ -95,10 +100,14 @@ public class FXMLTableViewController implements Initializable {
     /*
     this method takes in a table string to show informartion about the corresponding data
      */
-    public void initTableData(Table table) {
+    public void initTableData(Table table) throws Exception {
         tableLabel.setText("Table " + table.getTableNumber());
         tableLabel.setAlignment(Pos.CENTER);
         this.table = table;
+        if (!(dbManager.isTableOccupied(table.getTableNumber()))) {
+            orderProgressButton.setDisable(true);
+            viewBillButton.setDisable(true);
+        }
     }
 
     @FXML
@@ -182,6 +191,8 @@ public class FXMLTableViewController implements Initializable {
             dbManager.insertOrderToDb(tableID, menuItemID);
             sendToKitchen.setText("Order Successfully Sent");
             currentOrderTextArea.clear();
+            orderProgressButton.setDisable(false);
+            viewBillButton.setDisable(false);
         }
     }
 
@@ -201,15 +212,17 @@ public class FXMLTableViewController implements Initializable {
 
     @FXML
     private void handleOrderProgress(ActionEvent event) throws SQLException, Exception {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("orderProgress.fxml"));
-        Stage stage = new Stage();
-        Parent root = loader.load();
-        OrderProgressController controller = loader.getController();
-        controller.initOrderData(this.table);
-        stage.setScene(new Scene(root));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(backButton.getScene().getWindow());
-        stage.showAndWait();
+        if (dbManager.isTableOccupied(this.table.getTableNumber())) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("orderProgress.fxml"));
+            Stage stage = new Stage();
+            Parent root = loader.load();
+            OrderProgressController controller = loader.getController();
+            controller.initOrderData(this.table);
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(backButton.getScene().getWindow());
+            stage.showAndWait();
+        }
     }
 }

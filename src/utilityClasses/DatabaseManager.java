@@ -144,7 +144,7 @@ public class DatabaseManager {
         while (rs.next()) {
             return String.valueOf(rs.getInt("id"));
         }
-        throw new Exception("no table found");
+        return "";
     }
 
     public static String getTableNumber(int tableID) throws SQLException, Exception {
@@ -154,7 +154,7 @@ public class DatabaseManager {
         while (rs.next()) {
             return String.valueOf(rs.getInt("tableNumber"));
         }
-        throw new Exception("no table found");
+        return "";
     }
 
     public String getMenuItemID(MenuItem menuItem) throws SQLException, Exception {
@@ -209,11 +209,13 @@ public class DatabaseManager {
     }
 
     public void removeTableFromDB(Table table) throws Exception {
-        String tableID = getTableID(String.valueOf(table.getTableNumber()));
-        String tableNumber = String.valueOf(table.getTableNumber());
-        String sql = "DELETE FROM tables WHERE ID = " + tableID + " AND tableNumber = " + tableNumber;
-        Statement statement = connection.createStatement();
-        statement.execute(sql);
+        if (isTableOccupied(table.getTableNumber())) {
+            String tableID = getTableID(String.valueOf(table.getTableNumber()));
+            String tableNumber = String.valueOf(table.getTableNumber());
+            String sql = "DELETE FROM tables WHERE ID = " + tableID + " AND tableNumber = " + tableNumber;
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+        }
     }
 
     public void removeOrderFromDB(Order order) {
