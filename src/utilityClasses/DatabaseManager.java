@@ -208,4 +208,16 @@ public class DatabaseManager {
         statement.execute(sql);
     }
 
+    public void removeTableFromDB(Table table) throws Exception {
+        String tableID = getTableID(String.valueOf(table.getTableNumber()));
+        String tableNumber = String.valueOf(table.getTableNumber());
+        String sql = "DELETE FROM tables WHERE ID = " + tableID + " AND tableNumber = " + tableNumber;
+        Statement statement = connection.createStatement();
+        statement.execute(sql);
+    }
+
+    public void removeOrderFromDB(Order order) {
+
+    }
+
 }

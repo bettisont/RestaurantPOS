@@ -65,6 +65,8 @@ public class FXMLTableViewController implements Initializable {
     private Button dessertsButton;
     @FXML
     private Button returnButton;
+    @FXML
+    private Button sendToKitchen;
 
     DatabaseManager dbManager;
     private Dictionary menuItemButtonMappings;
@@ -164,7 +166,7 @@ public class FXMLTableViewController implements Initializable {
 
     @FXML
     private void handleSendToKitchenButton(ActionEvent event) throws SQLException, Exception {
-        System.out.println("Sending order to Kitchen!");
+
         // add the table in the tables schema
         String tableNumber = tableLabel.getText().split(" ")[1];
         dbManager.insertTableToDb(tableNumber);
@@ -178,7 +180,23 @@ public class FXMLTableViewController implements Initializable {
             String tableID = dbManager.getTableID(tableNumber);
             String menuItemID = dbManager.getMenuItemID(thisItem);
             dbManager.insertOrderToDb(tableID, menuItemID);
+            sendToKitchen.setText("Order Successfully Sent");
+            currentOrderTextArea.clear();
         }
+    }
+
+    @FXML
+    private void handleViewBillButton() throws IOException, Exception {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("ViewBill.fxml"));
+        Stage stage = new Stage();
+        Parent root = loader.load();
+        ViewBillController controller = loader.getController();
+        controller.initBillData(this.table);
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(backButton.getScene().getWindow());
+        stage.showAndWait();
     }
 
     @FXML
