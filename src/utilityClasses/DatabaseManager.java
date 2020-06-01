@@ -167,8 +167,10 @@ public class DatabaseManager {
         throw new Exception("menu item not found");
     }
 
-    public void insertOrderToDb(String tableID, String menuItemID) throws SQLException {
-        String sql = "INSERT INTO `orders` (`ID`, `tableID`, `menuItemID`, `status`) VALUES (NULL, " + "'" + tableID + "'" + ", " + "'" + menuItemID + "'" + ", 'waiting')";
+    public void insertOrderToDb(String tableID, String menuItemID, String orderNotes) throws SQLException {
+        String ID = "0";
+        String status = "waiting";
+        String sql = "INSERT INTO `orders` (`ID`, `tableID`, `menuItemID`, `status`, `notes`) VALUES (" + "'" + ID + "'" + "," + "'" + tableID + "'" + "," + "'" + menuItemID + "'" + "," + "'" + status + "'" + "," + "'" + orderNotes + "'" + ")";
         Statement statement = connection.createStatement();
         statement.execute(sql);
     }

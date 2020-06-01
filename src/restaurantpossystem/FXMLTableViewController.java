@@ -30,6 +30,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -99,6 +100,10 @@ public class FXMLTableViewController implements Initializable {
     private Table table;
     private List<Button> menuItemCategories;
     private ObservableList<CurrentOrderEntry> currentOrderEntries = FXCollections.observableArrayList();
+
+    // I'm using this dictionary to store the menuItem linked with the notes for that menu item
+    // e.g. <steak, "make sure it's medium rare">
+    private Dictionary currentOrderMenuItemEntryPairs;
 
     /**
      * Initializes the controller class.
@@ -185,13 +190,12 @@ public class FXMLTableViewController implements Initializable {
     // when a menu item button is clicked, the corresponding menu item object should be added to a list
     // so that it can be added to the current order
     private void handleMenuItemButtonClick(ActionEvent event) {
-
         Button menuItemBtn = (Button) event.getSource();
         System.out.println(menuItemBtn.getText());
         MenuItem thisMenuItem = (MenuItem) menuItemButtonMappings.get(menuItemBtn);
         currentOrderEntries.add(new CurrentOrderEntry(thisMenuItem.getName(), this));
+        currentOrder.add(thisMenuItem);
         UpdateCurrentOrder();
-
     }
 
     @FXML
@@ -202,16 +206,27 @@ public class FXMLTableViewController implements Initializable {
         dbManager.insertTableToDb(tableNumber);
 
         // for each item in the current order list
-        for (Object item : currentOrder) {
-            MenuItem thisItem = (MenuItem) item;
-            // create an entry in the order table
-            // the entry must have a table ID of the current table
-            // the entry must have a menuItemID of the menuItem
+//        for (Object item : currentOrder) {
+//            MenuItem thisItem = (MenuItem) item;
+//            // create an entry in the order table
+//            // the entry must have a table ID of the current table
+//            // the entry must have a menuItemID of the menuItem
+//            String tableID = dbManager.getTableID(tableNumber);
+//            String menuItemID = dbManager.getMenuItemID(thisItem);
+//            String orderNotes = "";
+//            // need to get the notes column for each menu item in the table to insrt here
+//            dbManager.insertOrderToDb(tableID, menuItemID, orderNotes);
+//            sendToKitchen.setText("Order Successfully Sent");
+//            currentOrderTextArea.clear();
+//            orderProgressButton.setDisable(false);
+//            viewBillButton.setDisable(false);
+//        }
+        for (int i = 0; i < currentOrder.size(); i++) {
+            MenuItem thisItem = (MenuItem) currentOrder.get(i);
             String tableID = dbManager.getTableID(tableNumber);
             String menuItemID = dbManager.getMenuItemID(thisItem);
-            dbManager.insertOrderToDb(tableID, menuItemID);
-            sendToKitchen.setText("Order Successfully Sent");
-            currentOrderTextArea.clear();
+            String orderNotes = (String) menuItemNotesColumn.getCellObservableValue(i).getValue();
+            dbManager.insertOrderToDb(tableID, menuItemID, orderNotes);
             orderProgressButton.setDisable(false);
             viewBillButton.setDisable(false);
         }
