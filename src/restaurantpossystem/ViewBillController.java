@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import utilityClasses.DatabaseManager;
 import utilityClasses.MenuItem;
 import utilityClasses.Order;
@@ -41,6 +42,7 @@ public class ViewBillController implements Initializable {
     private Table table;
     private DatabaseManager dbManager;
     private List<Order> orders;
+    FXMLTableViewController controller;
 
     /**
      * Initializes the controller class.
@@ -50,7 +52,7 @@ public class ViewBillController implements Initializable {
         // TODO
     }
 
-    public void initBillData(Table table) throws SQLException, Exception {
+    public void initBillData(Table table, FXMLTableViewController controller) throws SQLException, Exception {
         orders = new ArrayList<Order>();
         dbManager = new DatabaseManager();
         this.table = table;
@@ -65,6 +67,7 @@ public class ViewBillController implements Initializable {
             orderItemsTextArea.appendText("- " + thisMenuItem.getName() + "\n");
         }
         totalText.setText("Total Price: £" + Float.toString(totalPrice));
+        this.controller = controller;
     }
 
     @FXML
@@ -72,7 +75,10 @@ public class ViewBillController implements Initializable {
         // clear table from database
         // clear orders of that table from database
         dbManager.removeTableFromDB(this.table);
-
+        controller.initTableData(this.table);
+        controller.sendToKitchen.setDisable(true);
+        Stage stage = (Stage) paidButton.getScene().getWindow();
+        stage.close();
     }
 
 }

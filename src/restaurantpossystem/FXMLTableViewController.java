@@ -81,7 +81,7 @@ public class FXMLTableViewController implements Initializable {
     @FXML
     private Button returnButton;
     @FXML
-    private Button sendToKitchen;
+    public Button sendToKitchen;
 
     @FXML
     TableView currentOrderTable;
@@ -127,13 +127,20 @@ public class FXMLTableViewController implements Initializable {
     this method takes in a table string to show informartion about the corresponding data
      */
     public void initTableData(Table table) throws Exception {
-        tableLabel.setText("Table " + table.getTableNumber());
-        tableLabel.setAlignment(Pos.CENTER);
         this.table = table;
         if (!(dbManager.isTableOccupied(table.getTableNumber()))) {
             orderProgressButton.setDisable(true);
             viewBillButton.setDisable(true);
+            // display available note
+            tableLabel.setText("Table " + table.getTableNumber() + " (Available)");
+        } else {
+            tableLabel.setText("Table " + table.getTableNumber() + " (Occupied)");
         }
+        if (!(currentOrder.size() > 0)) {
+            sendToKitchen.setDisable(true);
+        }
+        tableLabel.setAlignment(Pos.CENTER);
+        currentOrderTable.getItems().clear();
     }
 
     @FXML
@@ -196,40 +203,28 @@ public class FXMLTableViewController implements Initializable {
         currentOrderEntries.add(new CurrentOrderEntry(thisMenuItem.getName(), this));
         currentOrder.add(thisMenuItem);
         UpdateCurrentOrder();
+        sendToKitchen.setDisable(false);
     }
 
     @FXML
     private void handleSendToKitchenButton(ActionEvent event) throws SQLException, Exception {
-
         // add the table in the tables schema
         String tableNumber = tableLabel.getText().split(" ")[1];
         dbManager.insertTableToDb(tableNumber);
-
-        // for each item in the current order list
-//        for (Object item : currentOrder) {
-//            MenuItem thisItem = (MenuItem) item;
-//            // create an entry in the order table
-//            // the entry must have a table ID of the current table
-//            // the entry must have a menuItemID of the menuItem
-//            String tableID = dbManager.getTableID(tableNumber);
-//            String menuItemID = dbManager.getMenuItemID(thisItem);
-//            String orderNotes = "";
-//            // need to get the notes column for each menu item in the table to insrt here
-//            dbManager.insertOrderToDb(tableID, menuItemID, orderNotes);
-//            sendToKitchen.setText("Order Successfully Sent");
-//            currentOrderTextArea.clear();
-//            orderProgressButton.setDisable(false);
-//            viewBillButton.setDisable(false);
-//        }
         for (int i = 0; i < currentOrder.size(); i++) {
             MenuItem thisItem = (MenuItem) currentOrder.get(i);
             String tableID = dbManager.getTableID(tableNumber);
             String menuItemID = dbManager.getMenuItemID(thisItem);
             String orderNotes = (String) menuItemNotesColumn.getCellObservableValue(i).getValue();
+            if (orderNotes == null) {
+                orderNotes = "";
+            }
             dbManager.insertOrderToDb(tableID, menuItemID, orderNotes);
             orderProgressButton.setDisable(false);
             viewBillButton.setDisable(false);
         }
+        this.initTableData(this.table);
+        sendToKitchen.setDisable(true);
     }
 
     @FXML
@@ -239,7 +234,7 @@ public class FXMLTableViewController implements Initializable {
         Stage stage = new Stage();
         Parent root = loader.load();
         ViewBillController controller = loader.getController();
-        controller.initBillData(this.table);
+        controller.initBillData(this.table, this);
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(backButton.getScene().getWindow());
