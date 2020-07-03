@@ -143,6 +143,11 @@ public class FXMLTableViewController implements Initializable {
         currentOrderTable.getItems().clear();
     }
 
+    public void updateActiveOrders() {
+        ObservableList<ChefOrderEntry> activeOrderEntries = FXCollections.observableArrayList();
+
+    }
+
     @FXML
     private void backButtonOnAction(ActionEvent event) throws IOException {
         // save state of the screen first?

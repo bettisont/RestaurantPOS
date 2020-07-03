@@ -58,6 +58,8 @@ public class FXMLChefGUIController implements Initializable {
     @FXML
     TableColumn incomingPreperationTimeColumn;
     @FXML
+    TableColumn incomingNotesColumn;
+    @FXML
     TableColumn incomingActionColumn;
     @FXML
     TableColumn incomingIdColumn;
@@ -105,17 +107,19 @@ public class FXMLChefGUIController implements Initializable {
             String mealName = thisMenuItem.getName();
             int allergen = thisMenuItem.getAllergen();
             int orderId = order.getId();
+            String notes = order.getNotes();
             String prepTime = thisMenuItem.getTimeToPrepare();
             if (orderStatus.equals("waiting")) {
-                waitingChefOrderEntries.add(new ChefOrderEntry(orderId, Integer.valueOf(tableNumber), mealName, prepTime, allergen, this));
+                waitingChefOrderEntries.add(new ChefOrderEntry(orderId, Integer.valueOf(tableNumber), mealName, prepTime, notes, allergen, this));
             } else if (orderStatus.equals("in progress")) {
-                inProgressChefOrderEntries.add(new ChefOrderEntry(orderId, Integer.valueOf(tableNumber), mealName, prepTime, allergen, this));
+                inProgressChefOrderEntries.add(new ChefOrderEntry(orderId, Integer.valueOf(tableNumber), mealName, prepTime, notes, allergen, this));
             }
         }
 
         incomingTableNumColumn.setCellValueFactory(new PropertyValueFactory<>("tableNumber"));
         incomingMealColumn.setCellValueFactory(new PropertyValueFactory<>("mealName"));
         incomingPreperationTimeColumn.setCellValueFactory(new PropertyValueFactory<>("preperationTime"));
+        incomingNotesColumn.setCellValueFactory(new PropertyValueFactory<>("notes"));
         incomingActionColumn.setCellValueFactory(new PropertyValueFactory<>("startButton"));
         incomingActionColumn.setStyle("-fx-alignment: CENTER;");
         incomingIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));

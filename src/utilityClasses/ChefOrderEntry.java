@@ -24,20 +24,24 @@ public class ChefOrderEntry {
     private Text tableNumber;
     private Text mealName;
     private Text preperationTime;
+    private Text notes;
     private int isAllergen;
     private Button startButton;
     private Button finishedButton;
     private int id;
     private FXMLChefGUIController chefController;
+    private int prepTimeAsInt;
 
-    public ChefOrderEntry(int id, int tableNumber, String mealName, String preperationTime, int isAllergen, FXMLChefGUIController controller) {
+    public ChefOrderEntry(int id, int tableNumber, String mealName, String preperationTime, String notes, int isAllergen, FXMLChefGUIController controller) {
 
         this.chefController = controller;
         Text tableNumberText = new Text();
         Text mealNameText = new Text();
         Text preperationTimeText = new Text();
+        Text notesText = new Text();
         Button startBtnButton = new Button();
         Button finishedBtnButton = new Button();
+        prepTimeAsInt = Integer.parseInt(preperationTime);
 
         if (isAllergen == 1) {
             tableNumberText.setText(String.valueOf(tableNumber));
@@ -46,12 +50,16 @@ public class ChefOrderEntry {
             mealNameText.setFill(Color.RED);
             preperationTimeText.setText(preperationTime);
             preperationTimeText.setFill(Color.RED);
+            notesText.setText(notes);
+            // notesText.wrappingWidthProperty()
+            notesText.setFill(Color.RED);
             finishedBtnButton.setStyle("-fx-text-fill: rgb(39,174,96);");
             startBtnButton.setStyle("-fx-text-fill: rgb(255,0,0);");
         } else {
             tableNumberText.setText(String.valueOf(tableNumber));
             mealNameText.setText(mealName);
             preperationTimeText.setText(preperationTime);
+            notesText.setText(notes);
             finishedBtnButton.setStyle("-fx-text-fill: rgb(39,174,96);");
         }
 
@@ -59,6 +67,7 @@ public class ChefOrderEntry {
         startBtnButton.setText("Start");
         this.tableNumber = tableNumberText;
         this.mealName = mealNameText;
+        this.notes = notesText;
         this.preperationTime = preperationTimeText;
         this.finishedButton = finishedBtnButton;
         this.startButton = startBtnButton;
@@ -80,6 +89,14 @@ public class ChefOrderEntry {
             }
         });
 
+    }
+
+    public Text getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Text notes) {
+        this.notes = notes;
     }
 
     public void InstansiateAllergenObjects() {
@@ -146,6 +163,8 @@ public class ChefOrderEntry {
         DatabaseManager dbManager = new DatabaseManager();
         // update the status of the row in the order schema to 'inprogress'
         dbManager.setOrderStatusToInProgress(this.id);
+        // update completion time of the order in the database
+        dbManager.setOrderCompletionTime(this.id, this.prepTimeAsInt);
         // start a timer countdown somehow
         chefController.updateIncomingOrders();
     }

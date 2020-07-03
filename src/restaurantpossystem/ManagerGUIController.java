@@ -13,9 +13,12 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -34,6 +37,28 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import utilityClasses.ActiveOrdersEntry;
+import utilityClasses.ChefOrderEntry;
+import utilityClasses.Order;
+
+class Update extends TimerTask {
+
+    ManagerGUIController controller;
+
+    public Update(ManagerGUIController controller) {
+        this.controller = controller;
+    }
+
+    @Override
+    public void run() {
+        try {
+            controller.updateActiveOrders();
+        } catch (Exception ex) {
+            Logger.getLogger(Update.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+}
 
 /**
  * FXML Controller class
@@ -46,11 +71,7 @@ public class ManagerGUIController implements Initializable {
     private ObservableList<MenuItem> menuItemsInDatabase;
     private List<Table> tables;
 
-    @FXML
-    Button addItemButton;
-    @FXML
-    Button refreshEditMenuTableButton;
-
+    // Tables Tab --------------------------------
     @FXML
     Button tableButton1;
     @FXML
@@ -113,7 +134,26 @@ public class ManagerGUIController implements Initializable {
     Button tableButton30;
     @FXML
     Button backButton;
+    // -------------------------------------------------------
 
+    // Active Orders Tab -------------------------------------
+    @FXML
+    private TableView activeOrdersTable;
+    @FXML
+    private TableColumn activeOrdersTableNumberColumn;
+    @FXML
+    private TableColumn activeOrdersTableOrderColumn;
+    @FXML
+    private TableColumn activeOrdersTableTimeRemainingColumn;
+    @FXML
+    private TableColumn activeOrdersStatusColumn;
+
+    // -------------------------------------------------------
+    // Edit Menu Tab -----------------------------------------
+    @FXML
+    Button addItemButton;
+    @FXML
+    Button refreshEditMenuTableButton;
     @FXML
     private TableView<MenuItem> editMenuTable;
     @FXML
@@ -129,6 +169,7 @@ public class ManagerGUIController implements Initializable {
     @FXML
     private TableColumn<MenuItem, String> prepTimeColumn;
 
+    // ------------------------------------------------------
     //configure the table
     // @FXML private TableView<MenuItem> tableView;
     // @FXML private TableColumn<MenuItem, String> nameCol;
@@ -141,7 +182,34 @@ public class ManagerGUIController implements Initializable {
 
         fetchAndUpdateEditMenuTable();
 
+        try {
+            updateActiveOrders();
+        } catch (Exception ex) {
+            Logger.getLogger(ManagerGUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         tables = new ArrayList<Table>();
+        Timer timer = new Timer();
+        timer.schedule(new Update(this), 0, 1000);
+
+    }
+
+    public void updateActiveOrders() throws SQLException, Exception {
+        ObservableList<ActiveOrdersEntry> activeOrdersEntries = FXCollections.observableArrayList();
+        for (Order order : dbManager.getAllOrders()) {
+            String tableNumber = DatabaseManager.getTableNumber(order.getTableID());
+            String orderName = dbManager.getMenuItem(order.getMenuItemID()).getName();
+            String status = order.getStatus();
+            String completionTime = dbManager.getOrderCompletionTime(order.getId());
+            ActiveOrdersEntry thisEntry = new ActiveOrdersEntry(tableNumber, orderName, status, completionTime, this);
+            activeOrdersEntries.add(thisEntry);
+        }
+
+        activeOrdersTableNumberColumn.setCellValueFactory(new PropertyValueFactory<>("tableNumber"));
+        activeOrdersTableOrderColumn.setCellValueFactory(new PropertyValueFactory<>("order"));
+        activeOrdersTableTimeRemainingColumn.setCellValueFactory(new PropertyValueFactory<>("timeRemaining"));
+        activeOrdersStatusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        activeOrdersTable.setItems(activeOrdersEntries);
 
     }
 

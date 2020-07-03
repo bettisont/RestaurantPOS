@@ -5,6 +5,9 @@
  */
 package utilityClasses;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  *
  * @author timbettison
@@ -13,12 +16,12 @@ public class orderProgressEntry {
 
     private String itemName;
     private String status;
-    private String timeRemaining;
+    private String completionTime;
 
-    public orderProgressEntry(String itemName, String status, String timeRemaining) {
+    public orderProgressEntry(String itemName, String status, String completionTime) {
         this.itemName = itemName;
         this.status = status;
-        this.timeRemaining = timeRemaining;
+        this.completionTime = completionTime;
     }
 
     public String getItemName() {
@@ -37,12 +40,12 @@ public class orderProgressEntry {
         this.status = status;
     }
 
-    public String getTimeRemaining() {
-        return timeRemaining;
+    public String getCompletionTime() {
+        return completionTime;
     }
 
-    public void setTimeRemaining(String timeRemaining) {
-        this.timeRemaining = timeRemaining;
+    public void setCompletionTime(String completionTime) {
+        this.completionTime = completionTime;
     }
 
 }

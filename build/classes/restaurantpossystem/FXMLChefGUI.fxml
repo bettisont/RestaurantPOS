@@ -31,10 +31,11 @@
             <TableView fx:id="incomingOrdersTable" layoutX="10.0" prefHeight="573.0" prefWidth="460.0" tableMenuButtonVisible="true">
               <columns>
                   <TableColumn fx:id="incomingIdColumn" prefWidth="26.0" text="ID" visible="false" />
-                <TableColumn fx:id="incomingTableNumColumn" prefWidth="59.0" resizable="false" text="Table" />
-                <TableColumn fx:id="incomingMealColumn" prefWidth="157.0" resizable="false" text="Meal" />
-                  <TableColumn fx:id="incomingPreperationTimeColumn" minWidth="0.0" prefWidth="91.0" resizable="false" text="Prep Time" />
-                  <TableColumn fx:id="incomingActionColumn" prefWidth="135.0" resizable="false" text="Action" />
+                <TableColumn fx:id="incomingTableNumColumn" prefWidth="42.0" resizable="false" text="Table" />
+                <TableColumn fx:id="incomingMealColumn" prefWidth="122.0" resizable="false" text="Meal" />
+                  <TableColumn fx:id="incomingPreperationTimeColumn" minWidth="0.0" prefWidth="101.0" resizable="false" text="Prep Time" />
+                  <TableColumn fx:id="incomingNotesColumn" minWidth="0.0" prefWidth="77.0" text="Notes" />
+                  <TableColumn fx:id="incomingActionColumn" prefWidth="100.0" resizable="false" text="Action" />
               </columns>
             </TableView>
          </children></Pane>

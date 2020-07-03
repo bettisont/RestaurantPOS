@@ -50,7 +50,17 @@
     </Tab>
       <Tab text="Active Orders ">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="activeOrdersTable" layoutX="25.0" layoutY="34.0" prefHeight="550.0" prefWidth="950.0">
+                    <columns>
+                      <TableColumn fx:id="activeOrdersTableNumberColumn" prefWidth="237.5" text="Table Number" />
+                      <TableColumn fx:id="activeOrdersTableOrderColumn" prefWidth="237.5" text="Item" />
+                        <TableColumn fx:id="activeOrdersTableTimeRemainingColumn" prefWidth="237.5" text="Time Remaining" />
+                        <TableColumn fx:id="activeOrdersStatusColumn" prefWidth="237.5" text="Status" />
+                    </columns>
+                  </TableView>
+               </children></AnchorPane>
         </content>
       </Tab>
       <Tab text="Edit Menu">

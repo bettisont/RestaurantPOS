@@ -15,12 +15,22 @@ public class Order {
     private int id;
     private int tableID;
     private int menuItemID;
+    private String notes;
 
-    public Order(String status, int tableID, int menuItemID, int id) {
+    public Order(String status, int tableID, int menuItemID, int id, String notes) {
         this.status = status;
         this.tableID = tableID;
         this.menuItemID = menuItemID;
         this.id = id;
+        this.notes = notes;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public String getStatus() {

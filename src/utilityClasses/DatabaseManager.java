@@ -11,7 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -181,7 +184,7 @@ public class DatabaseManager {
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            orders.add(new Order(rs.getString("status"), rs.getInt("tableid"), rs.getInt("menuitemid"), rs.getInt("id")));
+            orders.add(new Order(rs.getString("status"), rs.getInt("tableid"), rs.getInt("menuitemid"), rs.getInt("id"), rs.getString("notes")));
         }
         return orders;
     }
@@ -193,7 +196,7 @@ public class DatabaseManager {
         PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            orders.add(new Order(rs.getString("status"), rs.getInt("tableid"), rs.getInt("menuitemid"), rs.getInt("id")));
+            orders.add(new Order(rs.getString("status"), rs.getInt("tableid"), rs.getInt("menuitemid"), rs.getInt("id"), rs.getString("notes")));
         }
         return orders;
     }
@@ -202,6 +205,29 @@ public class DatabaseManager {
         String sql = "UPDATE orders SET status = 'in progress' WHERE id = " + OrderId;
         Statement statement = connection.createStatement();
         statement.execute(sql);
+    }
+
+    public void setOrderCompletionTime(int orderId, int preperationTime) throws SQLException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        sdf.format(date);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.MINUTE, preperationTime);
+        String completionTime = sdf.format(cal.getTime());
+        String sql = "UPDATE `orders` SET `completionTime` = '" + completionTime + "' WHERE `orders`.`ID` = '" + orderId + "'";
+        Statement statement = connection.createStatement();
+        statement.execute(sql);
+    }
+
+    public String getOrderCompletionTime(int orderId) throws SQLException, Exception {
+        String sql = "SELECT `completionTime` FROM `orders` WHERE `ID` =  '" + orderId + "'";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            return String.valueOf(rs.getTime("completionTime"));
+        }
+        throw new Exception("order not found");
     }
 
     public void setOrderStatusToComplete(int OrderId) throws SQLException {
@@ -218,10 +244,6 @@ public class DatabaseManager {
             Statement statement = connection.createStatement();
             statement.execute(sql);
         }
-    }
-
-    public void removeOrderFromDB(Order order) {
-
     }
 
 }
