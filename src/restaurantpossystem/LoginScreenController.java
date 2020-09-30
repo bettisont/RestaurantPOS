@@ -37,24 +37,23 @@ public class LoginScreenController implements Initializable {
 
         chefWindow.setScene(scene);
         chefWindow.show();
-        Stage loginStage;
-        loginStage = (Stage) label.getScene().getWindow();
-        loginStage.close();
     }
 
     @FXML
     private void handleFoHButtonAction(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("FXMLFoHGUI.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("FXMLManagerGUI.fxml"));
+
+        Parent parent = loader.load();
         Scene scene = new Scene(parent);
 
-        // this line gets the Stage information
-        Stage chefWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        // access the controller and call a method
+        ManagerGUIController controller = loader.getController();
+        controller.initAsFrontOfHouse();
 
-        chefWindow.setScene(scene);
-        chefWindow.show();
-        Stage loginStage;
-        loginStage = (Stage) label.getScene().getWindow();
-        loginStage.close();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(scene);
     }
 
     @FXML
@@ -67,10 +66,6 @@ public class LoginScreenController implements Initializable {
 
         chefWindow.setScene(scene);
         chefWindow.show();
-
-        Stage loginStage;
-        loginStage = (Stage) label.getScene().getWindow();
-        loginStage.close();
     }
 
     @Override

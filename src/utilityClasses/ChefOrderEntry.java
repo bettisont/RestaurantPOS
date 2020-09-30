@@ -6,6 +6,8 @@
 package utilityClasses;
 
 import java.sql.SQLException;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -31,8 +33,10 @@ public class ChefOrderEntry {
     private int id;
     private FXMLChefGUIController chefController;
     private int prepTimeAsInt;
+    private String timeRemaining;
+    private String completionTime;
 
-    public ChefOrderEntry(int id, int tableNumber, String mealName, String preperationTime, String notes, int isAllergen, FXMLChefGUIController controller) {
+    public ChefOrderEntry(int id, int tableNumber, String mealName, String preperationTime, String completionTime, String status, String notes, int isAllergen, FXMLChefGUIController controller) {
 
         this.chefController = controller;
         Text tableNumberText = new Text();
@@ -61,6 +65,18 @@ public class ChefOrderEntry {
             preperationTimeText.setText(preperationTime);
             notesText.setText(notes);
             finishedBtnButton.setStyle("-fx-text-fill: rgb(39,174,96);");
+        }
+        this.completionTime = completionTime;
+        LocalTime time = LocalTime.parse(completionTime);
+        LocalTime timeNow = LocalTime.now();
+        int seconds = (int) timeNow.until(time, ChronoUnit.SECONDS);
+        if (!(seconds > 0)) {
+            this.timeRemaining = "Not Started.";
+        } else if (status.contains("complete")) {
+            this.timeRemaining = "Ready For Collection";
+        } else {
+            String myTimeUntil = String.format("%02d:%02d", seconds / 60, seconds % 60);
+            this.timeRemaining = myTimeUntil;
         }
 
         finishedBtnButton.setText("Complete");
@@ -175,6 +191,22 @@ public class ChefOrderEntry {
         dbManager.setOrderStatusToComplete(this.id);
         // start a timer countdown somehow
         chefController.updateIncomingOrders();
+    }
+
+    public String getTimeRemaining() {
+        return timeRemaining;
+    }
+
+    public void setTimeRemaining(String timeRemaining) {
+        this.timeRemaining = timeRemaining;
+    }
+
+    public String getCompletionTime() {
+        return completionTime;
+    }
+
+    public void setCompletionTime(String completionTime) {
+        this.completionTime = completionTime;
     }
 
 }

@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -71,7 +73,7 @@ public class FXMLChefGUIController implements Initializable {
     @FXML
     TableColumn inprogressMealColumn;
     @FXML
-    TableColumn inprogressPreperationTimeColumn;
+    TableColumn inProgressTimeRemainingColumn;
     @FXML
     TableColumn inProgressActionColumn;
     Button backButton;
@@ -89,6 +91,9 @@ public class FXMLChefGUIController implements Initializable {
         } catch (Exception ex) {
             Logger.getLogger(FXMLChefGUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        Timer timer = new Timer();
+        timer.schedule(new UpdateChef(this), 0, 1000);
 
     }
 
@@ -109,10 +114,12 @@ public class FXMLChefGUIController implements Initializable {
             int orderId = order.getId();
             String notes = order.getNotes();
             String prepTime = thisMenuItem.getTimeToPrepare();
+            String completionTime = dbManager.getOrderCompletionTime(order.getId());
+            String status = order.getStatus();
             if (orderStatus.equals("waiting")) {
-                waitingChefOrderEntries.add(new ChefOrderEntry(orderId, Integer.valueOf(tableNumber), mealName, prepTime, notes, allergen, this));
+                waitingChefOrderEntries.add(new ChefOrderEntry(orderId, Integer.valueOf(tableNumber), mealName, prepTime, completionTime, status, notes, allergen, this));
             } else if (orderStatus.equals("in progress")) {
-                inProgressChefOrderEntries.add(new ChefOrderEntry(orderId, Integer.valueOf(tableNumber), mealName, prepTime, notes, allergen, this));
+                inProgressChefOrderEntries.add(new ChefOrderEntry(orderId, Integer.valueOf(tableNumber), mealName, prepTime, completionTime, status, notes, allergen, this));
             }
         }
 
@@ -127,7 +134,7 @@ public class FXMLChefGUIController implements Initializable {
 
         inprogressTableNumColumn.setCellValueFactory(new PropertyValueFactory<>("tableNumber"));
         inprogressMealColumn.setCellValueFactory(new PropertyValueFactory<>("mealName"));
-        inprogressPreperationTimeColumn.setCellValueFactory(new PropertyValueFactory<>("preperationTime"));
+        inProgressTimeRemainingColumn.setCellValueFactory(new PropertyValueFactory<>("timeRemaining"));
         inProgressActionColumn.setCellValueFactory(new PropertyValueFactory<>("finishedButton"));
         inProgressActionColumn.setStyle("-fx-alignment: CENTER;");
         inprogressOrdersTable.setItems(inProgressChefOrderEntries);
@@ -142,6 +149,25 @@ public class FXMLChefGUIController implements Initializable {
         Stage loginWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
         loginWindow.setScene(scene);
         loginWindow.show();
+    }
+
+}
+
+class UpdateChef extends TimerTask {
+
+    FXMLChefGUIController controller;
+
+    public UpdateChef(FXMLChefGUIController controller) {
+        this.controller = controller;
+    }
+
+    @Override
+    public void run() {
+        try {
+            controller.updateIncomingOrders();
+        } catch (Exception ex) {
+            Logger.getLogger(Update.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

@@ -31,6 +31,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
@@ -40,25 +41,6 @@ import javafx.stage.Stage;
 import utilityClasses.ActiveOrdersEntry;
 import utilityClasses.ChefOrderEntry;
 import utilityClasses.Order;
-
-class Update extends TimerTask {
-
-    ManagerGUIController controller;
-
-    public Update(ManagerGUIController controller) {
-        this.controller = controller;
-    }
-
-    @Override
-    public void run() {
-        try {
-            controller.updateActiveOrders();
-        } catch (Exception ex) {
-            Logger.getLogger(Update.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-}
 
 /**
  * FXML Controller class
@@ -134,8 +116,8 @@ public class ManagerGUIController implements Initializable {
     Button tableButton30;
     @FXML
     Button backButton;
-    // -------------------------------------------------------
 
+    // -------------------------------------------------------
     // Active Orders Tab -------------------------------------
     @FXML
     private TableView activeOrdersTable;
@@ -150,6 +132,8 @@ public class ManagerGUIController implements Initializable {
 
     // -------------------------------------------------------
     // Edit Menu Tab -----------------------------------------
+    @FXML
+    Tab editMenuTab;
     @FXML
     Button addItemButton;
     @FXML
@@ -192,6 +176,10 @@ public class ManagerGUIController implements Initializable {
         Timer timer = new Timer();
         timer.schedule(new Update(this), 0, 1000);
 
+    }
+
+    public void initAsFrontOfHouse() {
+        editMenuTab.disableProperty().set(true);
     }
 
     public void updateActiveOrders() throws SQLException, Exception {
@@ -278,6 +266,25 @@ public class ManagerGUIController implements Initializable {
         Stage loginWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
         loginWindow.setScene(scene);
         loginWindow.show();
+    }
+
+}
+
+class Update extends TimerTask {
+
+    ManagerGUIController controller;
+
+    public Update(ManagerGUIController controller) {
+        this.controller = controller;
+    }
+
+    @Override
+    public void run() {
+        try {
+            controller.updateActiveOrders();
+        } catch (Exception ex) {
+            Logger.getLogger(Update.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

@@ -20,7 +20,7 @@
                   <TableColumn fx:id="incomingIdColumn1" prefWidth="26.0" text="ID" visible="false" />
                   <TableColumn fx:id="inprogressTableNumColumn" prefWidth="59.0" resizable="false" text="Table" />
                   <TableColumn fx:id="inprogressMealColumn" prefWidth="157.0" resizable="false" text="Meal" />
-                  <TableColumn fx:id="inprogressPreperationTimeColumn" minWidth="0.0" prefWidth="97.0" resizable="false" text="Time Remaining" />
+                  <TableColumn fx:id="inProgressTimeRemainingColumn" minWidth="0.0" prefWidth="97.0" resizable="false" text="Time Remaining" />
                   <TableColumn fx:id="inProgressActionColumn" prefWidth="119.0" resizable="false" text="Action" />
                </columns>
             </TableView>
